@@ -1,7 +1,6 @@
 export function delegate (el, event, selector, handler, data) {
     el.addEventListener(event, function (e) {
-        var target = e.target;
-        if (target.matches(selector)) {
+        if (e.target.matches(selector)) {
             handler(data, el, e);
         }
     });

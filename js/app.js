@@ -54,7 +54,7 @@ import { TodoStore } from './store.js';
 			App.render();
 		},
 		createTodoItem: function(todo) {
-			var li = document.createElement('li');
+			const li = document.createElement('li');
 			if (todo.completed) { li.classList.add('completed'); }
 	
 			li.innerHTML = `
