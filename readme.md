@@ -1,6 +1,8 @@
 # TodoMVC App Written in Vanilla JS in 2022
 
-Seems it is pretty simple to build fairly complex things these days. Here's my Vanilla JavaScript implimentation. Initial implementation took about 60 minutes total.
+Seems it is pretty simple to build fairly complex things these days in modern JavaScript. We can take advantage of most features without crazy hacks. 
+
+Here's my Vanilla JavaScript implimentation – it took about 60 minutes total to write:
 
 - 165 lines of code total
 - No build tools
