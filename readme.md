@@ -2,7 +2,7 @@
 
 Seems it is pretty simple to build fairly complex things these days. Here's my Vanilla JavaScript implimentation. Initial implementation took about 60 minutes total.
 
-- 166 lines of code total
+- 165 lines of code total
 - No build tools
 - JavaScript modules
 - Done in 60 minutes
