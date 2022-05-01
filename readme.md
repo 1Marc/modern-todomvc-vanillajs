@@ -7,7 +7,7 @@ Here's my Vanilla JavaScript implimentation – initial version took 60 minutes 
 - 175 lines of code total
 - No build tools
 - JavaScript modules
-- Inital implementation done in an hour, added features since with a bit of refactoring
+- Inital implementation done in an hour, then cleaned it up with ~30 min of refactoring
 
 Related poll: "Would you build a large web app in 2022 with Vanilla JS?" https://twitter.com/1Marc/status/1520146662924206082
 
