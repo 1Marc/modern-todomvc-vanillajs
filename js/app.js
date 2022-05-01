@@ -45,14 +45,14 @@ import { TodoStore } from './store.js';
 		toggleTodo: function(todo) {
 			TodoStore.toggle(todo);
 		},
-		saveTodo: function(todo, listItem, e) {
+		updateTodo: function(todo, listItem, e) {
 			if (e.key === 'Enter') {
 				todo.title = e.target.value;
 				TodoStore.update(todo);
 				listItem.classList.remove('editing');
 			}
 		},
-		editMode: function(todo, listItem, e) {
+		editingTodo: function(todo, listItem) {
 			listItem.classList.add('editing');
 			listItem.querySelector('.edit').focus();
 		},
@@ -70,8 +70,8 @@ import { TodoStore } from './store.js';
 
 			delegate(li, 'click', '.destroy', App.removeTodo, todo);
 			delegate(li, 'click', '.toggle', App.toggleTodo, todo);
-			delegate(li, 'dblclick', 'li label', App.editMode, todo);
-			delegate(li, 'keyup', '.edit', App.saveTodo, todo);
+			delegate(li, 'keyup', '.edit', App.updateTodo, todo);
+			delegate(li, 'dblclick', 'li label', App.editingTodo, todo);
 
 			return li;
 		},
