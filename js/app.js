@@ -23,7 +23,7 @@ import { TodoStore } from './store.js';
 				App.render();
 			});
 			App.$.input.addEventListener('keyup', e => {
-				if (e.keyCode === 'Enter') {
+				if (e.keyCode === 13) {
 					App.addTodo(e.target.value);
 					App.$.input.value = '';
 				}
