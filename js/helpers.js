@@ -1,9 +1,5 @@
-export function delegate (el, event, selector, handler, data) {
-    el.addEventListener(event, function (e) {
-        if (e.target.matches(selector)) {
-            handler(data, el, e);
-        }
-    });
+export function addEvent (el, selector, event, handler) {
+    el.querySelector(selector).addEventListener(event, e => handler(e));
 }
 
 export function escapeForHTML (str) {

@@ -1,4 +1,4 @@
-import { delegate, escapeForHTML, getURLHash } from './helpers.js';
+import { addEvent, escapeForHTML, getURLHash } from './helpers.js';
 import { TodoStore } from './store.js';
 
 (function (window) {
@@ -45,16 +45,13 @@ import { TodoStore } from './store.js';
 		toggleTodo: function(todo) {
 			TodoStore.toggle(todo);
 		},
-		updateTodo: function(todo, listItem, e) {
-			if (e.key === 'Enter') {
-				todo.title = e.target.value;
-				TodoStore.update(todo);
-				listItem.classList.remove('editing');
-			}
+		editingTodo: function(todo, li) {
+			li.classList.add('editing');
+			li.querySelector('.edit').focus();
 		},
-		editingTodo: function(todo, listItem) {
-			listItem.classList.add('editing');
-			listItem.querySelector('.edit').focus();
+		updateTodo: function(todo, li) {
+			TodoStore.update(todo);
+			li.querySelector('.edit').value = todo.title;
 		},
 		createTodoItem: function(todo) {
 			const li = document.createElement('li');
@@ -68,26 +65,28 @@ import { TodoStore } from './store.js';
 				</div>
 				<input class="edit" value="${escapeForHTML(todo.title)}">`;
 
-			delegate(li, 'click', '.destroy', App.removeTodo, todo);
-			delegate(li, 'click', '.toggle', App.toggleTodo, todo);
-			delegate(li, 'keyup', '.edit', App.updateTodo, todo);
-			delegate(li, 'dblclick', 'li label', App.editingTodo, todo);
+			addEvent(li, '.destroy', 'click', () => App.removeTodo(todo, li));
+			addEvent(li, '.toggle', 'click', () => App.toggleTodo(todo, li));
+			addEvent(li, 'label', 'dblclick', () => App.editingTodo(todo, li));
+			addEvent(li, '.edit', 'keyup', e => {
+				if (e.key === 'Enter') App.updateTodo({ ...todo, title: e.target.value }, li)
+			});
+			addEvent(li, '.edit', 'blur', e => App.updateTodo({ ...todo, title: e.target.value }, li));
 
 			return li;
 		},
 		render: function() {
-			const todos = TodoStore.all(App.filter);
 			const todosCount = TodoStore.all().length;
 			App.$.filters.querySelectorAll('a').forEach(el => el.classList.remove('selected'));
 			App.$.filters.querySelector(`[href="#/${App.filter}"]`).classList.add('selected');
 			App.$.list.innerHTML = '';
-			todos.forEach(todo => {
+			TodoStore.all(App.filter).forEach(todo => {
 				App.$.list.appendChild( App.createTodoItem(todo) );
 			});
 			App.$.footer.style.display = todosCount ? 'block' : 'none';
 			App.$.main.style.display = todosCount ? 'block' : 'none';
 			App.$.clear.style.display = TodoStore.hasCompleted() ? 'block' : 'none';
-			App.$.toggleAll.checked = todosCount && todos.every(todo => todo.completed);
+			App.$.toggleAll.checked = todosCount && TodoStore.isAllCompleted();
 			App.$.count.innerHTML = TodoStore.all('active').length;
 		}
 	}
