@@ -4,7 +4,7 @@ Seems it is pretty simple to build fairly complex things these days in modern Ja
 
 Here's my Vanilla JavaScript implimentation – it took about 60 minutes total to write:
 
-- 165 lines of code total
+- 180 lines of code total
 - No build tools
 - JavaScript modules
 - Done in 60 minutes
