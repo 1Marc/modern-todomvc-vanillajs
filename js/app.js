@@ -17,41 +17,44 @@ import { TodoStore } from './store.js';
 		},
 		filter: getURLHash(),
 		_init: function () {
-			TodoStore._init();
+			TodoStore._init().addEventListener('save', App.render);
 			window.addEventListener('hashchange', () => {
 				App.filter = getURLHash();
 				App.render();
 			});
 			App.$.input.addEventListener('keyup', e => {
-				if (e.keyCode === 13) {
+				if (e.keyCode === 'Enter') {
 					App.addTodo(e.target.value);
 					App.$.input.value = '';
 				}
 			});
 			App.$.toggleAll.addEventListener('click', e => {
 				TodoStore.toggleAll();
-				App.render();
 			});
 			App.$.clear.addEventListener('click', e => {
 				TodoStore.clearCompleted();
-				App.render();
 			});
-			App.render();
-		},
-		showFilteredTodos: function () {
 			App.render();
 		},
 		addTodo: function(todo) {
 			TodoStore.add({ title: todo, completed: false, id: "id_" + Date.now() });
-			App.render();
 		},
 		removeTodo: function(todo) {
 			TodoStore.remove(todo);
-			App.render();
 		},
 		toggleTodo: function(todo) {
 			TodoStore.toggle(todo);
-			App.render();
+		},
+		saveTodo: function(todo, listItem, e) {
+			if (e.key === 'Enter') {
+				todo.title = e.target.value;
+				TodoStore.update(todo);
+				listItem.classList.remove('editing');
+			}
+		},
+		editMode: function(todo, listItem, e) {
+			listItem.classList.add('editing');
+			listItem.querySelector('.edit').focus();
 		},
 		createTodoItem: function(todo) {
 			const li = document.createElement('li');
@@ -62,10 +65,13 @@ import { TodoStore } from './store.js';
 					<input class="toggle" type="checkbox" ${todo.completed ? 'checked' : ''}>
 					<label>${escapeForHTML(todo.title)}</label>
 					<button class="destroy"></button>
-				</div>`;
+				</div>
+				<input class="edit" value="${escapeForHTML(todo.title)}">`;
 
 			delegate(li, 'click', '.destroy', App.removeTodo, todo);
 			delegate(li, 'click', '.toggle', App.toggleTodo, todo);
+			delegate(li, 'dblclick', 'li label', App.editMode, todo);
+			delegate(li, 'keyup', '.edit', App.saveTodo, todo);
 
 			return li;
 		},
