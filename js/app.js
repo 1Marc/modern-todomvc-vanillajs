@@ -4,6 +4,8 @@ import { TodoStore } from './store.js';
 (function (window) {
 	'use strict';
 
+	const Todos = new TodoStore('todo-vanillajs-2022');
+
 	const App = {
 		$: {
 			input:		document.querySelector('.new-todo'),
@@ -17,7 +19,7 @@ import { TodoStore } from './store.js';
 		},
 		filter: getURLHash(),
 		_init: function () {
-			TodoStore._init().addEventListener('save', App.render);
+			Todos.addEventListener('save', App.render);
 			window.addEventListener('hashchange', () => {
 				App.filter = getURLHash();
 				App.render();
@@ -29,28 +31,28 @@ import { TodoStore } from './store.js';
 				}
 			});
 			App.$.toggleAll.addEventListener('click', e => {
-				TodoStore.toggleAll();
+				Todos.toggleAll();
 			});
 			App.$.clear.addEventListener('click', e => {
-				TodoStore.clearCompleted();
+				Todos.clearCompleted();
 			});
 			App.render();
 		},
 		addTodo: function(todo) {
-			TodoStore.add({ title: todo, completed: false, id: "id_" + Date.now() });
+			Todos.add({ title: todo, completed: false, id: "id_" + Date.now() });
 		},
 		removeTodo: function(todo) {
-			TodoStore.remove(todo);
+			Todos.remove(todo);
 		},
 		toggleTodo: function(todo) {
-			TodoStore.toggle(todo);
+			Todos.toggle(todo);
 		},
 		editingTodo: function(todo, li) {
 			li.classList.add('editing');
 			li.querySelector('.edit').focus();
 		},
 		updateTodo: function(todo, li) {
-			TodoStore.update(todo);
+			Todos.update(todo);
 			li.querySelector('.edit').value = todo.title;
 		},
 		createTodoItem: function(todo) {
@@ -76,18 +78,18 @@ import { TodoStore } from './store.js';
 			return li;
 		},
 		render: function() {
-			const todosCount = TodoStore.all().length;
+			const todosCount = Todos.all().length;
 			App.$.filters.querySelectorAll('a').forEach(el => el.classList.remove('selected'));
 			App.$.filters.querySelector(`[href="#/${App.filter}"]`).classList.add('selected');
 			App.$.list.innerHTML = '';
-			TodoStore.all(App.filter).forEach(todo => {
+			Todos.all(App.filter).forEach(todo => {
 				App.$.list.appendChild( App.createTodoItem(todo) );
 			});
 			App.$.footer.style.display = todosCount ? 'block' : 'none';
 			App.$.main.style.display = todosCount ? 'block' : 'none';
-			App.$.clear.style.display = TodoStore.hasCompleted() ? 'block' : 'none';
-			App.$.toggleAll.checked = todosCount && TodoStore.isAllCompleted();
-			App.$.count.innerHTML = TodoStore.all('active').length;
+			App.$.clear.style.display = Todos.hasCompleted() ? 'block' : 'none';
+			App.$.toggleAll.checked = todosCount && Todos.isAllCompleted();
+			App.$.count.innerHTML = Todos.all('active').length;
 		}
 	}
 
