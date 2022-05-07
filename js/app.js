@@ -62,7 +62,8 @@ const App = {
 				<label>${escapeForHTML(todo.title)}</label>
 				<button class="destroy"></button>
 			</div>
-			<input class="edit" value="${escapeForHTML(todo.title)}">`;
+			<input class="edit" value="${escapeForHTML(todo.title)}">
+		`;
 
 		addEvent(li, '.destroy', 'click', () => App.removeTodo(todo, li));
 		addEvent(li, '.toggle', 'click', () => App.toggleTodo(todo, li));
