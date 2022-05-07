@@ -4,10 +4,12 @@ Seems it is pretty simple to build fairly complex things these days in modern Ja
 
 Here's my Vanilla JavaScript implimentation – initial version took 60 minutes total to write (see first commit)
 
-- 175 lines of code total
+- 159 lines of code total
 - No build tools
 - JavaScript modules
 - Inital implementation done in an hour, then cleaned it up with ~30 min of refactoring
+
+[View the working example on GitHub pages](https://1marc.github.io/todomvc-vanillajs-2022/)
 
 Related poll: "Would you build a large web app in 2022 with Vanilla JS?" https://twitter.com/1Marc/status/1520146662924206082
 
