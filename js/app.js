@@ -15,7 +15,7 @@ const App = {
 		filters: 	document.querySelector('.filters'),
 	},
 	filter: getURLHash(),
-	_init: function () {
+	_init() {
 		Todos.addEventListener('save', App.render);
 		window.addEventListener('hashchange', () => {
 			App.filter = getURLHash();
@@ -35,24 +35,24 @@ const App = {
 		});
 		App.render();
 	},
-	addTodo: function(todo) {
+	addTodo(todo) {
 		Todos.add({ title: todo, completed: false, id: "id_" + Date.now() });
 	},
-	removeTodo: function(todo) {
+	removeTodo(todo) {
 		Todos.remove(todo);
 	},
-	toggleTodo: function(todo) {
+	toggleTodo(todo) {
 		Todos.toggle(todo);
 	},
-	editingTodo: function(todo, li) {
+	editingTodo(todo, li) {
 		li.classList.add('editing');
 		li.querySelector('.edit').focus();
 	},
-	updateTodo: function(todo, li) {
+	updateTodo(todo, li) {
 		Todos.update(todo);
 		li.querySelector('.edit').value = todo.title;
 	},
-	createTodoItem: function(todo) {
+	createTodoItem(todo) {
 		const li = document.createElement('li');
 		if (todo.completed) { li.classList.add('completed'); }
 
@@ -74,7 +74,7 @@ const App = {
 
 		return li;
 	},
-	render: function() {
+	render() {
 		const todosCount = Todos.all().length;
 		App.$.filters.querySelectorAll('a').forEach(el => el.classList.remove('selected'));
 		App.$.filters.querySelector(`[href="#/${App.filter}"]`).classList.add('selected');
