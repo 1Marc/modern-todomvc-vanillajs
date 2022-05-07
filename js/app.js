@@ -70,6 +70,10 @@ const App = {
 		addEvent(li, 'label', 'dblclick', () => App.editingTodo(todo, li));
 		addEvent(li, '.edit', 'keyup', e => {
 			if (e.key === 'Enter') App.updateTodo({ ...todo, title: e.target.value }, li)
+			if (e.key === 'Escape') {
+				e.target.value = todo.title;
+				App.render();
+			}
 		});
 		addEvent(li, '.edit', 'blur', e => App.updateTodo({ ...todo, title: e.target.value }, li));
 
