@@ -46,15 +46,8 @@ export const TodoStore = class extends EventTarget {
         this._save();
     }
     toggleAll () {
-        if (this.hasCompleted()) {
-            if (this.isAllCompleted()) {
-                this.todos = this.todos.map(todo => ({ ...todo, completed: false }));
-            } else {
-                this.todos = this.todos.map(todo => ({ ...todo, completed: true }));
-            }
-        } else {
-            this.todos = this.todos.map(todo => ({ ...todo, completed: true }));
-        }
+		const completed = !this.hasCompleted() || !this.isAllCompleted();
+		this.todos = this.todos.map(todo => ({ ...todo, completed }));
         this._save();
     }
 };
