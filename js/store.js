@@ -50,4 +50,4 @@ export const TodoStore = class extends EventTarget {
 		this.todos = this.todos.map(todo => ({ ...todo, completed }));
         this._save();
     }
-};
+}

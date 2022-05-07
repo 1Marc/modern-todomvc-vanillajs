@@ -88,6 +88,6 @@ const App = {
 		App.$.toggleAll.checked = todosCount && Todos.isAllCompleted();
 		App.$.count.innerHTML = Todos.all('active').length;
 	}
-}
+};
 
 App.init();
