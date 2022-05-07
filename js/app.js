@@ -15,7 +15,7 @@ const App = {
 		filters: 	document.querySelector('.filters'),
 	},
 	filter: getURLHash(),
-	_init() {
+	init() {
 		Todos.addEventListener('save', App.render);
 		window.addEventListener('hashchange', () => {
 			App.filter = getURLHash();
@@ -90,4 +90,4 @@ const App = {
 	}
 }
 
-App._init();
+App.init();
