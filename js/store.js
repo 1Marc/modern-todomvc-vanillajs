@@ -2,7 +2,15 @@ export const TodoStore = class extends EventTarget {
     constructor(localStorageKey) {
         super();
         this.localStorageKey = localStorageKey;
-        this.todos = JSON.parse(window.localStorage.getItem(localStorageKey) || '[]');
+        this._readStorage();
+        // handle if todos are edited in another window
+        window.addEventListener("storage", () => {
+            this._readStorage();
+            this._save();
+        }, false);
+    }
+    _readStorage () {
+        this.todos = JSON.parse(window.localStorage.getItem(this.localStorageKey) || '[]');
     }
     _save() {
         window.localStorage.setItem(this.localStorageKey, JSON.stringify(this.todos));

@@ -1,4 +1,4 @@
-import { addEvent, escapeForHTML, getURLHash } from './helpers.js';
+import { addEvent, getURLHash } from './helpers.js';
 import { TodoStore } from './store.js';
 
 const Todos = new TodoStore('todo-vanillajs-2022');
@@ -59,17 +59,24 @@ const App = {
 		li.innerHTML = `
 			<div class="view">
 				<input class="toggle" type="checkbox" ${todo.completed ? 'checked' : ''}>
-				<label>${escapeForHTML(todo.title)}</label>
+				<label></label>
 				<button class="destroy"></button>
 			</div>
-			<input class="edit" value="${escapeForHTML(todo.title)}">
+			<input class="edit">
 		`;
+
+		li.querySelector('label').textContent = todo.title;
+		li.querySelector('.edit').value = todo.title;
 
 		addEvent(li, '.destroy', 'click', () => App.removeTodo(todo, li));
 		addEvent(li, '.toggle', 'click', () => App.toggleTodo(todo, li));
 		addEvent(li, 'label', 'dblclick', () => App.editingTodo(todo, li));
 		addEvent(li, '.edit', 'keyup', e => {
 			if (e.key === 'Enter') App.updateTodo({ ...todo, title: e.target.value }, li)
+			if (e.key === 'Escape') {
+				e.target.value = todo.title;
+				App.render();
+			}
 		});
 		addEvent(li, '.edit', 'blur', e => App.updateTodo({ ...todo, title: e.target.value }, li));
 
