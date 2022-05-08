@@ -4,7 +4,7 @@ Seems it is pretty simple to build fairly complex things these days in modern Ja
 
 Here's my Vanilla JavaScript implimentation – initial version took 60 minutes total to write (see first commit)
 
-- 159 lines of code total
+- 167 lines of code total (compared to the official vanilla JS TodoMVC from 6 years ago was 900+ LOC)
 - No build tools
 - JavaScript modules
 - Inital implementation done in an hour, then cleaned it up with ~30 min of refactoring
