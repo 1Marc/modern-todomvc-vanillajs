@@ -2,18 +2,18 @@
 
 Seems it is pretty simple to build fairly complex things these days in modern JavaScript. We can take advantage of most features without crazy hacks. 
 
-Here's my Vanilla JavaScript implimentation – initial version took 60 minutes total to write (see first commit)
+Here's my Vanilla JavaScript implementation – initial version took 60 minutes total to write (see first commit)
 
 - 167 lines of code total (compared to the official vanilla JS TodoMVC from 6 years ago was 900+ LOC)
 - No build tools
 - JavaScript modules
-- Inital implementation done in an hour, then cleaned it up with ~30 min of refactoring
+- Initial implementation done in an hour, then cleaned it up with ~30 min of refactoring
 
 [View the working example on GitHub pages](https://1marc.github.io/todomvc-vanillajs-2022/)
 
 Related poll: "Would you build a large web app in 2022 with Vanilla JS?" https://twitter.com/1Marc/status/1520146662924206082
 
-Critism, PRs and feedback welcome!
+Criticism, PRs and feedback welcome!
 
 ## License
 
