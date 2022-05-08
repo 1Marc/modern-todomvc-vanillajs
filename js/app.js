@@ -7,7 +7,7 @@ const App = {
 	$: {
 		input:		document.querySelector('.new-todo'),
 		list: 		document.querySelector('.todo-list'),
-		count: 		document.querySelector('.todo-count strong'),
+		count: 		document.querySelector('.todo-count'),
 		footer: 	document.querySelector('.footer'),
 		toggleAll: 	document.querySelector('.toggle-all'),
 		main: 		document.querySelector('.main'),
@@ -94,7 +94,10 @@ const App = {
 		App.$.main.style.display = todosCount ? 'block' : 'none';
 		App.$.clear.style.display = Todos.hasCompleted() ? 'block' : 'none';
 		App.$.toggleAll.checked = todosCount && Todos.isAllCompleted();
-		App.$.count.innerHTML = Todos.all('active').length;
+		App.$.count.innerHTML = `
+			<strong>${Todos.all('active').length}</strong>
+			${Todos.all('active').length === 1 ? 'item' : 'items'} left
+		`;
 	}
 };
 
