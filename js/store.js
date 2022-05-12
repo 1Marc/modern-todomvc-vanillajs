@@ -37,6 +37,9 @@ export const TodoStore = class extends EventTarget {
         this.todos.push({ title: todo.title, completed: false, id: "id_" + Date.now() });
         this._save();
     }
+    get (id) {
+        return this.todos.find(todo => todo.id === id);
+    }
     remove ({ id }) {
         this.todos = this.todos.filter(todo => todo.id !== id);
         this._save();

@@ -1,4 +1,4 @@
-import { addEvent, getURLHash } from './helpers.js';
+import { addEvent, delegate, getURLHash } from './helpers.js';
 import { TodoStore } from './store.js';
 
 const Todos = new TodoStore('todo-vanillajs-2022');
@@ -33,6 +33,7 @@ const App = {
 		App.$.clear.addEventListener('click', e => {
 			Todos.clearCompleted();
 		});
+		App.initTodoItemEvents();
 		App.render();
 	},
 	addTodo(todo) {
@@ -44,16 +45,40 @@ const App = {
 	toggleTodo(todo) {
 		Todos.toggle(todo);
 	},
-	editingTodo(todo, li) {
-		li.classList.add('editing');
-		li.querySelector('.edit').focus();
-	},
-	updateTodo(todo, li) {
+	updateTodo(todo) {
 		Todos.update(todo);
-		li.querySelector('.edit').value = todo.title;
+	},
+	delegateTodo(event, selector, handler) {
+		delegate(App.$.list, selector, event, e => {
+			let $el = e.target.closest('[data-id]');
+			handler(Todos.get($el.dataset.id), $el, e);
+		});
+	},
+	initTodoItemEvents() {
+		App.delegateTodo('click', '.destroy', (todo) => App.removeTodo(todo));
+		App.delegateTodo('click', '.toggle', (todo) => App.toggleTodo(todo));
+		App.delegateTodo('dblclick', 'label', (todo, $li) => {
+			$li.classList.add('editing');
+			$li.querySelector('.edit').focus();
+		});
+
+		App.delegateTodo('keyup', '.edit', (todo, $li, e) => {
+			let $input = $li.querySelector('.edit');
+			if (e.key === 'Enter') App.updateTodo({ ...todo, title: $input.value });
+			if (e.key === 'Escape') {
+				$input.value = todo.title;
+				App.render();
+			}
+		});
+
+		App.delegateTodo('blur', '.edit', (todo, $li, e) => {
+			const title = $li.querySelector('.edit').value;
+			App.updateTodo({ ...todo, title }, li);
+		});
 	},
 	createTodoItem(todo) {
 		const li = document.createElement('li');
+		li.dataset.id = todo.id;
 		if (todo.completed) { li.classList.add('completed'); }
 
 		li.innerHTML = `
@@ -67,18 +92,6 @@ const App = {
 
 		li.querySelector('label').textContent = todo.title;
 		li.querySelector('.edit').value = todo.title;
-
-		addEvent(li, '.destroy', 'click', () => App.removeTodo(todo, li));
-		addEvent(li, '.toggle', 'click', () => App.toggleTodo(todo, li));
-		addEvent(li, 'label', 'dblclick', () => App.editingTodo(todo, li));
-		addEvent(li, '.edit', 'keyup', e => {
-			if (e.key === 'Enter') App.updateTodo({ ...todo, title: e.target.value }, li)
-			if (e.key === 'Escape') {
-				e.target.value = todo.title;
-				App.render();
-			}
-		});
-		addEvent(li, '.edit', 'blur', e => App.updateTodo({ ...todo, title: e.target.value }, li));
 
 		return li;
 	},
