@@ -15,7 +15,7 @@ Related poll: "Would you build a large web app in 2022 with Vanilla JS?" https:/
 
 Criticism, PRs and feedback welcome!
 
-Note: People were concerned about the performance of re-rendering while binding events directly to new elements, so here's a branch of the same code but using [event delegation](https://github.com/1Marc/todomvc-vanillajs-2022/tree/event-delgation). This binds the events to the higher level list element which is persostant and looks up which todo was clicked using a data attribute.
+Note: People were concerned about the performance of re-rendering while binding events directly to new elements, so here's a branch of the same code but using [event delegation](https://github.com/1Marc/todomvc-vanillajs-2022/blob/event-delgation/js/app.js#L51-L78). This binds the events to the higher level list element which is persistent and looks up which todo was clicked using a data attribute.
 
 ## License
 
