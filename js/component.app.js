@@ -22,10 +22,10 @@ export class AppComponent {
 		};
 		this.Todos = Todos;
 		this.filter = false;
-		this.bindEvents();
+		this._bindEvents();
 		this.render();
 	}
-	bindEvents() {
+	_bindEvents() {
 		this.$.input.addEventListener('keyup', e => {
 			if (e.key === 'Enter') {
 				this.Todos.add({ title: e.target.value });

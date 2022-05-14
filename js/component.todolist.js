@@ -4,24 +4,24 @@ export class TodoListComponent {
 	constructor($root, Todos) {
 		this.$root = $root;
 		this.Todos = Todos;
-		this._setupEvents();
+		this._bindEvents();
 		this.render();
 	}
-	_todoEvent (event, selector, handler) {
+	todoEvent (event, selector, handler) {
 		delegate(this.$root, selector, event, e => {
 			let $el = e.target.closest('[data-id]');
 			handler(this.Todos.get($el.dataset.id), $el, e);
 		});
 	}
-	_setupEvents () {
-		this._todoEvent('click', '.destroy', (todo) => this.Todos.update(todo));
-		this._todoEvent('click', '.toggle', (todo) =>  this.Todos.toggle(todo));
-		this._todoEvent('dblclick', 'label', (_, $li) => {
+	_bindEvents () {
+		this.todoEvent('click', '.destroy', (todo) => this.Todos.update(todo));
+		this.todoEvent('click', '.toggle', (todo) =>  this.Todos.toggle(todo));
+		this.todoEvent('dblclick', 'label', (_, $li) => {
 			$li.classList.add('editing');
 			$li.querySelector('.edit').focus();
 		});
 
-		this._todoEvent('keyup', '.edit', (todo, $li, e) => {
+		this.todoEvent('keyup', '.edit', (todo, $li, e) => {
 			let $input = $li.querySelector('.edit');
 			if (e.key === 'Enter') this.Todos.update({ ...todo, title: $input.value })
 			if (e.key === 'Escape') {
@@ -30,7 +30,7 @@ export class TodoListComponent {
 			}
 		});
 
-		this._todoEvent('blur', '.edit', (todo, $li, e) => {
+		this.todoEvent('blur', '.edit', (todo, $li, e) => {
 			const title = $li.querySelector('.edit').value;
 			this.Todos.update({ ...todo, title });
 		});
