@@ -25,11 +25,11 @@ People were concerned about the performance of re-rendering while binding events
 
 This branch binds the events to the higher level list element which is persistent and looks up which todo was clicked using a data attribute.
 
-## Scalability: Extract List Component
+## Scalability: Application Architecture
 
-Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/list-component
+Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/app-architecture
 
-Then people were concerned about scalabillty of apps like this since there's no components and it's all one App. So I built on the event delegation branch and extracted the [Todo List Component](https://github.com/1Marc/todomvc-vanillajs-2022/blob/list-component/js/todo_list.js) that takes a container and a Todo model.
+Then people were concerned about scalabillty of apps like this since there's no components and it's all one App. So I built on the event delegation branch and extracted the TodoList and App component and wired the components together.
 
 ## License
 
