@@ -17,7 +17,7 @@ Criticism, PRs and feedback welcome!
 
 ## Memory Optimization: Event Delegation
 
-https://github.com/1Marc/todomvc-vanillajs-2022/tree/event-delegation
+Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/event-delegation
 
 People were concerned about the performance of re-rendering while binding events directly to new elements, so here's a branch of the same code but using [event delegation](https://github.com/1Marc/todomvc-vanillajs-2022/blob/event-delgation/js/app.js#L51-L78). 
 
@@ -25,9 +25,9 @@ This branch binds the events to the higher level list element which is persisten
 
 ## Scalability Example: List Component
 
-https://github.com/1Marc/todomvc-vanillajs-2022/tree/list-component
+Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/list-component
 
-Then people were concerned about scalabillty of apps like this since there's no structure or components. So I built on the event delegation branch and extracted the Todo List into a Component that takes a container and a Todo model.
+Then people were concerned about scalabillty of apps like this since there's no components and it's all one App. So I built on the event delegation branch and extracted the [Todo List Component](https://github.com/1Marc/todomvc-vanillajs-2022/blob/list-component/js/todo_list.js) that takes a container and a Todo model.
 
 ## License
 
