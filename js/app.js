@@ -1,4 +1,4 @@
-import { addEvent, delegate, getURLHash } from './helpers.js';
+import { delegate, getURLHash } from './helpers.js';
 import { TodoStore } from './store.js';
 
 const Todos = new TodoStore('todo-vanillajs-2022');
