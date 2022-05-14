@@ -15,15 +15,17 @@ Related poll: "Would you build a large web app in 2022 with Vanilla JS?" https:/
 
 Criticism, PRs and feedback welcome!
 
+# Additional Examples
+
 ## Memory Optimization: Event Delegation
 
-Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/event-delegation
+Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/event-delgation
 
 People were concerned about the performance of re-rendering while binding events directly to new elements, so here's a branch of the same code but using [event delegation](https://github.com/1Marc/todomvc-vanillajs-2022/blob/event-delgation/js/app.js#L51-L78). 
 
 This branch binds the events to the higher level list element which is persistent and looks up which todo was clicked using a data attribute.
 
-## Scalability Example: List Component
+## Scalability: Extract List Component
 
 Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/list-component
 
