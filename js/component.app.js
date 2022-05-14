@@ -1,9 +1,9 @@
 export class AppComponent {
 	constructor($root, Todos) {
 		this.$ = {
-			input:			$root.querySelector('.new-todo'),
-			toggleAll:	$root.querySelector('.toggle-all'),
-			clear: 			$root.querySelector('.clear-completed'),
+			input:      $root.querySelector('.new-todo'),
+			toggleAll:  $root.querySelector('.toggle-all'),
+			clear:      $root.querySelector('.clear-completed'),
 			clearFilters: () =>
 				$root.querySelectorAll('.filters a').forEach(el => el.classList.remove('selected')),
 			setActiveFilter: (filter) =>
