@@ -17,13 +17,9 @@ export const TodoStore = class extends EventTarget {
         this.dispatchEvent(new CustomEvent('save'));
     }
     // GETTER methods
-    all (viewFilter) {
-        if (viewFilter === 'active') {
-            return this.todos.filter(todo => !todo.completed);
-        }
-        if (viewFilter === 'completed') {
-            return this.todos.filter(todo => todo.completed);
-        }
+    all (filter) {
+        if (filter === 'active') return this.todos.filter(todo => !todo.completed);
+        if (filter === 'completed') return this.todos.filter(todo => todo.completed);
         return this.todos;
     }
     hasCompleted () {
