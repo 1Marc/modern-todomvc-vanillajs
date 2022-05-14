@@ -7,9 +7,6 @@ export class TodoListComponent {
 		this._setupEvents();
 		this.render();
 	}
-	send (event, todo) {
-		this.dispatchEvent(new CustomEvent(event, { detail: todo }));
-	}
 	_todoEvent (event, selector, handler) {
 		delegate(this.$root, selector, event, e => {
 			let $el = e.target.closest('[data-id]');
