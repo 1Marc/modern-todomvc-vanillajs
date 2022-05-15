@@ -15,7 +15,23 @@ Related poll: "Would you build a large web app in 2022 with Vanilla JS?" https:/
 
 Criticism, PRs and feedback welcome!
 
-Note: People were concerned about the performance of re-rendering while binding events directly to new elements, so here's a branch of the same code but using [event delegation](https://github.com/1Marc/todomvc-vanillajs-2022/blob/event-delgation/js/app.js#L51-L78). This binds the events to the higher level list element which is persistent and looks up which todo was clicked using a data attribute.
+# Additional Examples
+
+## Memory Optimization: Event Delegation
+
+Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/event-delgation
+
+People were concerned about the performance of re-rendering while binding events directly to new elements, so here's a branch of the same code but using [event delegation](https://github.com/1Marc/todomvc-vanillajs-2022/blob/event-delgation/js/app.js#L51-L78). 
+
+This branch binds the events to the higher level list element which is persistent and looks up which todo was clicked using a data attribute.
+
+## Scalability: Application Architecture
+
+Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/app-architecture
+
+Then people were concerned about scalabillty of apps like this since there's no components and it's all one App. So I built on the event delegation branch and extracted the TodoList and App component and wired the components together.
+
+Also note I realize it is a bit ridiculous to say the word "scalable" in the context of a todo app, but this should more be looked at as a blueprint for building something bigger. I plan to make more ambitious examples in the future to show what's possible.
 
 ## License
 
