@@ -8,14 +8,14 @@ export const TodoStore = class extends EventTarget {
             this._readStorage();
             this._save();
         }, false);
-		// GETTER methods
-		this.get = id => this.todos.find(todo => todo.id === id);
-		this.isAllCompleted = () => this.todos.every(todo => todo.completed);
-		this.hasCompleted = () => this.todos.some(todo => todo.completed);
-		this.all = filter =>
-			(filter === 'active') ? this.todos.filter(todo => !todo.completed) :
-			(filter === 'completed') ? this.todos.filter(todo => todo.completed) :
-			this.todos;
+	// GETTER methods
+	this.get = id => this.todos.find(todo => todo.id === id);
+	this.isAllCompleted = () => this.todos.every(todo => todo.completed);
+	this.hasCompleted = () => this.todos.some(todo => todo.completed);
+	this.all = filter =>
+		(filter === 'active') ? this.todos.filter(todo => !todo.completed) :
+		(filter === 'completed') ? this.todos.filter(todo => todo.completed) :
+		this.todos;
     }
     _readStorage () {
         this.todos = JSON.parse(window.localStorage.getItem(this.localStorageKey) || '[]');
