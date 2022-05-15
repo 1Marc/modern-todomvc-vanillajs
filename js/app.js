@@ -69,7 +69,7 @@ const App = {
 		li.querySelector('.edit').value = todo.title;
 
 		addEvent(li, '.destroy', 'click', () => App.removeTodo(todo, li));
-		addEvent(li, '.toggle', 'click', () => App.toggleTodo(todo, li));
+		addEvent(li, '.toggle', 'change', () => App.toggleTodo(todo, li));
 		addEvent(li, 'label', 'dblclick', () => App.editingTodo(todo, li));
 		addEvent(li, '.edit', 'keyup', e => {
 			if (e.key === 'Enter') App.updateTodo({ ...todo, title: e.target.value }, li)
