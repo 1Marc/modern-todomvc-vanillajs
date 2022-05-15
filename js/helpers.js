@@ -5,3 +5,13 @@ export const delegate = (el, selector, event, handler) => {
         if (e.target.matches(selector)) handler(e, el);
     });
 }
+
+export const insertHTML = (el, markup) => {
+	el.insertAdjacentHTML('afterbegin', markup);
+}
+
+export const emptyElement = el => {
+    while (el.hasChildNodes()) {
+		el.removeChild(el.lastChild);
+	}
+}
