@@ -1,4 +1,4 @@
-import { addEvent, getURLHash } from './helpers.js';
+import { addEvent, getURLHash, insertAfterBegin, removeChildNodes } from './helpers.js';
 import { TodoStore } from './store.js';
 
 const Todos = new TodoStore('todo-vanillajs-2022');
@@ -56,14 +56,14 @@ const App = {
 		const li = document.createElement('li');
 		if (todo.completed) { li.classList.add('completed'); }
 
-		li.innerHTML = `
+		insertAfterBegin(li, `
 			<div class="view">
 				<input class="toggle" type="checkbox" ${todo.completed ? 'checked' : ''}>
 				<label></label>
 				<button class="destroy"></button>
 			</div>
 			<input class="edit">
-		`;
+		`);
 
 		li.querySelector('label').textContent = todo.title;
 		li.querySelector('.edit').value = todo.title;
@@ -86,7 +86,7 @@ const App = {
 		const todosCount = Todos.all().length;
 		App.$.filters.querySelectorAll('a').forEach(el => el.classList.remove('selected'));
 		App.$.filters.querySelector(`[href="#/${App.filter}"]`).classList.add('selected');
-		App.$.list.innerHTML = '';
+		removeChildNodes(App.$.list)
 		Todos.all(App.filter).forEach(todo => {
 			App.$.list.appendChild( App.createTodoItem(todo) );
 		});
@@ -94,10 +94,11 @@ const App = {
 		App.$.main.style.display = todosCount ? 'block' : 'none';
 		App.$.clear.style.display = Todos.hasCompleted() ? 'block' : 'none';
 		App.$.toggleAll.checked = todosCount && Todos.isAllCompleted();
-		App.$.count.innerHTML = `
+		removeChildNodes(App.$.count)
+		insertAfterBegin(App.$.count, `
 			<strong>${Todos.all('active').length}</strong>
 			${Todos.all('active').length === 1 ? 'item' : 'items'} left
-		`;
+		`);
 	}
 };
 
