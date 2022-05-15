@@ -3,3 +3,11 @@ export const addEvent = (el, selector, event, handler) =>{
 }
 
 export const getURLHash = () => document.location.hash.replace(/^#\//, '');
+
+export const insertAfterBegin = (el, markup) => el.insertAdjacentHTML('afterbegin', markup);
+
+export const removeChildNodes = el => {
+    while (el.hasChildNodes()) {
+        el.removeChild(el.lastChild)
+    }
+}
