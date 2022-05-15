@@ -22,7 +22,7 @@ const App = {
 			App.render();
 		});
 		App.$.input.addEventListener('keyup', e => {
-			if (e.key === 'Enter') {
+			if (e.key === 'Enter' && e.target.value.length) {
 				App.addTodo(e.target.value);
 				App.$.input.value = '';
 			}
