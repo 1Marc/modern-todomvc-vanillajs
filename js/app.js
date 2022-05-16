@@ -5,14 +5,28 @@ const Todos = new TodoStore('todo-vanillajs-2022');
 
 const App = {
 	$: {
-		input:		document.querySelector('.new-todo'),
-		list: 		document.querySelector('.todo-list'),
-		count: 		document.querySelector('.todo-count'),
-		footer: 	document.querySelector('.footer'),
-		toggleAll: 	document.querySelector('.toggle-all'),
-		main: 		document.querySelector('.main'),
-		clear: 		document.querySelector('.clear-completed'),
-		filters: 	document.querySelector('.filters'),
+		input:      document.querySelector('.new-todo'),
+		toggleAll:  document.querySelector('.toggle-all'),
+		clear:      document.querySelector('.clear-completed'),
+		list:				document.querySelector('.todo-list'),
+		count:			document.querySelector('.todo-count'),
+		setActiveFilter: filter => {
+			document.querySelectorAll('.filters a').forEach(el => el.classList.remove('selected')),
+			document.querySelector(`[href="#/${filter}"]`).classList.add('selected');
+		},
+		showMain: show =>
+			document.querySelector('.main').style.display = show ? 'block': 'none',
+		showClear: show =>
+			document.querySelector('.clear-completed').style.display = show ? 'block': 'none',
+		showFooter: show =>
+			document.querySelector('.footer').style.display = show ? 'block': 'none',
+		displayCount: count => {
+			emptyElement(App.$.count);
+			insertHTML(App.$.count, `
+				<strong>${count}</strong>
+				${count === 1 ? 'item' : 'items'} left
+			`);
+		}
 	},
 	filter: getURLHash(),
 	init() {
@@ -22,8 +36,8 @@ const App = {
 			App.render();
 		});
 		App.$.input.addEventListener('keyup', e => {
-			if (e.key === 'Enter') {
-				App.addTodo(e.target.value);
+			if (e.key === 'Enter' && $input.value) {
+				Todos.add({ title: e.target.value, completed: false, id: "id_" + Date.now() })
 				App.$.input.value = '';
 			}
 		});
@@ -36,18 +50,6 @@ const App = {
 		App.initTodoItemEvents();
 		App.render();
 	},
-	addTodo(todo) {
-		Todos.add({ title: todo, completed: false, id: "id_" + Date.now() });
-	},
-	removeTodo(todo) {
-		Todos.remove(todo);
-	},
-	toggleTodo(todo) {
-		Todos.toggle(todo);
-	},
-	updateTodo(todo) {
-		Todos.update(todo);
-	},
 	delegateTodo(event, selector, handler) {
 		delegate(App.$.list, selector, event, e => {
 			let $el = e.target.closest('[data-id]');
@@ -55,63 +57,54 @@ const App = {
 		});
 	},
 	initTodoItemEvents() {
-		App.delegateTodo('click', '.destroy', (todo) => App.removeTodo(todo));
-		App.delegateTodo('click', '.toggle', (todo) => App.toggleTodo(todo));
-		App.delegateTodo('dblclick', 'label', (todo, $li) => {
+		App.delegateTodo('click', '.destroy', todo => Todos.remove(todo));
+		App.delegateTodo('click', '.toggle', todo => Todos.toggle(todo));
+		App.delegateTodo('dblclick', 'label', (_, $li) => {
 			$li.classList.add('editing');
 			$li.querySelector('.edit').focus();
 		});
-
 		App.delegateTodo('keyup', '.edit', (todo, $li, e) => {
 			let $input = $li.querySelector('.edit');
-			if (e.key === 'Enter') App.updateTodo({ ...todo, title: $input.value });
+			if (e.key === 'Enter' && $input.value)
+				Todos.update({ ...todo, title: $input.value });
 			if (e.key === 'Escape') {
 				$input.value = todo.title;
 				App.render();
 			}
 		});
-
 		App.delegateTodo('blur', '.edit', (todo, $li, e) => {
 			const title = $li.querySelector('.edit').value;
-			App.updateTodo({ ...todo, title }, li);
+			Todos.update({ ...todo, title });
 		});
 	},
 	createTodoItem(todo) {
 		const li = document.createElement('li');
 		li.dataset.id = todo.id;
 		if (todo.completed) { li.classList.add('completed'); }
-
-		li.innerHTML = `
+		insertHTML(li, `
 			<div class="view">
 				<input class="toggle" type="checkbox" ${todo.completed ? 'checked' : ''}>
 				<label></label>
 				<button class="destroy"></button>
 			</div>
 			<input class="edit">
-		`;
-
+		`);
 		li.querySelector('label').textContent = todo.title;
 		li.querySelector('.edit').value = todo.title;
-
 		return li;
 	},
 	render() {
-		const todosCount = Todos.all().length;
-		App.$.filters.querySelectorAll('a').forEach(el => el.classList.remove('selected'));
-		App.$.filters.querySelector(`[href="#/${App.filter}"]`).classList.add('selected');
+		const count = Todos.all().length;
+		if (App.filter) App.$.setActiveFilter(App.filter);
 		emptyElement(App.$.list);
 		Todos.all(App.filter).forEach(todo => {
 			App.$.list.appendChild( App.createTodoItem(todo) );
 		});
-		App.$.footer.style.display = todosCount ? 'block' : 'none';
-		App.$.main.style.display = todosCount ? 'block' : 'none';
-		App.$.clear.style.display = Todos.hasCompleted() ? 'block' : 'none';
-		App.$.toggleAll.checked = todosCount && Todos.isAllCompleted();
-		emptyElement(App.$.count);
-		insertHTML(App.$.count, `
-			<strong>${Todos.all('active').length}</strong>
-			${Todos.all('active').length === 1 ? 'item' : 'items'} left
-		`);
+		App.$.showMain(count);
+		App.$.showFooter(count);
+		App.$.showClear(Todos.hasCompleted());
+		App.$.toggleAll.checked = Todos.isAllCompleted();
+		App.$.displayCount(Todos.all('active').length);
 	}
 };
 
