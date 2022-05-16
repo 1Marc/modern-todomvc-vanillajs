@@ -28,7 +28,7 @@ Note: I realize it is a bit ridiculous to say the word "scalable" in the context
 
 This took only 60 minutes total to write, then ~30 min of refactoring: [see commit here](https://github.com/1Marc/todomvc-vanillajs-2022/tree/fb3c61ed104c440f0c29e3a074b6777c791aa2f6)
 
-How it came together so quickly was waht initially got me pumped about this.
+How it came together so quickly was what initially got me pumped about this.
 
 ## License
 
