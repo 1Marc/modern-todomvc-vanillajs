@@ -5,11 +5,11 @@ const Todos = new TodoStore('todo-vanillajs-2022');
 
 const App = {
 	$: {
-		input:      document.querySelector('.new-todo'),
-		toggleAll:  document.querySelector('.toggle-all'),
-		clear:      document.querySelector('.clear-completed'),
-		list:				document.querySelector('.todo-list'),
-		count:			document.querySelector('.todo-count'),
+		input:		document.querySelector('.new-todo'),
+		toggleAll:	document.querySelector('.toggle-all'),
+		clear:		document.querySelector('.clear-completed'),
+		list:		document.querySelector('.todo-list'),
+		count:		document.querySelector('.todo-count'),
 		setActiveFilter: filter => {
 			document.querySelectorAll('.filters a').forEach(el => el.classList.remove('selected')),
 			document.querySelector(`[href="#/${filter}"]`).classList.add('selected');
