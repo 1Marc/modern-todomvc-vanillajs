@@ -2,12 +2,11 @@
 
 Seems it is pretty simple to build fairly complex things these days in modern JavaScript. We can take advantage of most features without crazy hacks. 
 
-Here's my Vanilla JavaScript implementation – initial version took 60 minutes total to write (see first commit)
+Here's my Vanilla JavaScript implementation – initial version took 60 minutes total to write with ~30 min of refactoring [see earlier commit](https://github.com/1Marc/todomvc-vanillajs-2022/tree/fb3c61ed104c440f0c29e3a074b6777c791aa2f6)
 
-- 167 lines of code total (compared to the official vanilla JS TodoMVC from 6 years ago was 900+ LOC)
+- 184 lines of code total (compared to the official vanilla JS TodoMVC from 6 years ago was 900+ LOC)
 - No build tools
 - JavaScript modules
-- Initial implementation done in an hour, then cleaned it up with ~30 min of refactoring
 
 [View the working example on GitHub pages](https://1marc.github.io/todomvc-vanillajs-2022/)
 
@@ -17,19 +16,11 @@ Criticism, PRs and feedback welcome!
 
 # Additional Examples
 
-## Memory Optimization: Event Delegation
-
-Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/event-delgation
-
-People were concerned about the performance of re-rendering while binding events directly to new elements, so here's a branch of the same code but using [event delegation](https://github.com/1Marc/todomvc-vanillajs-2022/blob/event-delgation/js/app.js#L51-L78). 
-
-This branch binds the events to the higher level list element which is persistent and looks up which todo was clicked using a data attribute.
-
-## Scalability: Application Architecture
+## Application Architecture
 
 Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/app-architecture
 
-Then people were concerned about scalabillty of apps like this since there's no components and it's all one App. So I built on the event delegation branch and extracted the TodoList and App component and wired the components together.
+Then people were concerned about scalabillty of apps like this since there's no components and it's all one App. So I extracted the TodoList and App component and wired the components together.
 
 Also note I realize it is a bit ridiculous to say the word "scalable" in the context of a todo app, but this should more be looked at as a blueprint for building something bigger. I plan to make more ambitious examples in the future to show what's possible.
 
