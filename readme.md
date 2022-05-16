@@ -2,11 +2,12 @@
 
 Seems it is pretty simple to build fairly complex things these days in modern JavaScript. We can take advantage of most features without crazy hacks. 
 
-Here's my Vanilla JavaScript implementation – initial version took 60 minutes total to write with ~30 min of refactoring [see earlier commit](https://github.com/1Marc/todomvc-vanillajs-2022/tree/fb3c61ed104c440f0c29e3a074b6777c791aa2f6)
+Here's my Vanilla JavaScript implementation:
 
 - 184 lines of code total (compared to the official vanilla JS TodoMVC from 6 years ago was 900+ LOC)
 - No build tools
 - JavaScript modules
+- Initial version took only 60 minutes total to write, then ~30 min of refactoring [commit](https://github.com/1Marc/todomvc-vanillajs-2022/tree/fb3c61ed104c440f0c29e3a074b6777c791aa2f6)
 
 [View the working example on GitHub pages](https://1marc.github.io/todomvc-vanillajs-2022/)
 
@@ -16,13 +17,13 @@ Criticism, PRs and feedback welcome!
 
 # Additional Examples
 
-## Application Architecture
+## App Architecture
+
+People were concerned about scalabillty of apps like this since there's no components and it's all one App. So I extracted the TodoList and App component and wired the components together on the app-architecture branch.
 
 Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/app-architecture
 
-Then people were concerned about scalabillty of apps like this since there's no components and it's all one App. So I extracted the TodoList and App component and wired the components together.
-
-Also note I realize it is a bit ridiculous to say the word "scalable" in the context of a todo app, but this should more be looked at as a blueprint for building something bigger. I plan to make more ambitious examples in the future to show what's possible.
+Note: I realize it is a bit ridiculous to say the word "scalable" in the context of a todo app, but this should more be looked at as a blueprint for building something bigger. I plan to make more ambitious examples in the future to show what's possible.
 
 ## License
 
