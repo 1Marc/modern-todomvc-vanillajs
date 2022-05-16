@@ -1,6 +1,6 @@
 # TodoMVC App Written in Vanilla JS in 2022
 
-Seems it is pretty simple to build fairly complex things these days in modern JavaScript. We can take advantage of most features without crazy hacks. 
+Seems it is pretty straightforward to build reasonably complex things using only modern JavaScript these days! We can take advantage of most newer features without hacks or polyfills.
 
 Here's my Vanilla JavaScript implementation:
 
@@ -12,29 +12,29 @@ Here's my Vanilla JavaScript implementation:
 
 Related poll: "Would you build a large web app in 2022 with Vanilla JS?" https://twitter.com/1Marc/status/1520146662924206082
 
-Criticism, PRs and feedback welcome!
+Criticism, PRs, and feedback are welcome!
 
 # Additional Examples
 
 ## App Architecture
 
-People were concerned about scalabillty of apps like this since there's no components and it's all one App. So I extracted the TodoList and App component and wired the components together on the app-architecture branch.
+People were concerned about the scalability of apps like this since there are no components, and it's all one App. So I extracted the TodoList and App components and wired the components together on the app-architecture branch.
 
 Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/app-architecture
 
-Note: I realize it is a bit ridiculous to say the word "scalable" in the context of a todo app, but this should more be looked at as a blueprint for building something bigger. I plan to make more ambitious examples in the future to show what's possible.
+Note: I realize it is silly to say the word "scalable" in the context of a todo app, but this should be looked at as a blueprint for building something more extensive. I plan to make more ambitious examples in the future to show what's possible.
 
 ## Initial Code
 
-The initial version coming together in only 60 minutes, then ~30 min of refactoring: [see commit here](https://github.com/1Marc/todomvc-vanillajs-2022/tree/fb3c61ed104c440f0c29e3a074b6777c791aa2f6)
+The initial version came together in only 60 minutes, then ~30 min of refactoring: [see the commit here](https://github.com/1Marc/todomvc-vanillajs-2022/tree/fb3c61ed104c440f0c29e3a074b6777c791aa2f6)
 
-How quick it was to get working was what initially got me pumped about all of the progress that has happened in the core JavaScript language.
+How quick it was to get working was what initially got me pumped about all of the progress in the core JavaScript language.
 
 ## Highlights / Potential Learnings from the Code
 
 ### Sanitization
 
-User input must be sanatized before displayed in the HTML to prevent XSS (Cross Site Scripting). Therefore new todo titles are added to the template string using `textContent`.
+User input must be sanitized before being displayed in the HTML to prevent XSS (Cross-Site Scripting). Therefore new todo titles are added to the template string using `textContent`
 
 ```javascript
 li.querySelector('label').textContent = todo.title;
@@ -42,7 +42,7 @@ li.querySelector('label').textContent = todo.title;
 
 ### Event Delegation
 
-Since we render the todos frequently, it doens't make sense to bind event listerers and clean them up every time. Instead we bind our events to the parent list that always exists in the DOM, and infer which todo was clicked or edited by setting the data attribute of the item `$li.dataset.id = todo.id;`
+Since we render the todos frequently, it doesn't make sense to bind event listeners and clean them up every time. Instead, we bind our events to the parent list that always exists in the DOM and infer which todo was clicked or edited by setting the data attribute of the item `$li.dataset.id = todo.id;`
 
 Event delgation uses the `matches` selector:
 
@@ -85,7 +85,7 @@ export const emptyElement = el => {
 
 ### Grouping DOM Selectors & Methods
 
-Everything the App touches is scoped to the `App.$.*` namespace. This makes it pretty clear to know what in the DOM we'll actually be touching and modifying in our app.
+DOM selectors and modifications are scoped to the `App.$.*` namespace. In a way, it makes it self-documenting what our App could potentially modify in the document.
 
 ```javascript
 $: {
@@ -116,7 +116,7 @@ $: {
 
 ### Send Events on a Class Instance with Subclassing EventTarget
 
-We can subclass EventTarget in order to send out events on a class instance for our App to bind to:
+We can subclass EventTarget to send out events on a class instance for our App to bind to:
 
 ```javascript
 export const TodoStore = class extends EventTarget {
