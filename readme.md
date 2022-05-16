@@ -7,7 +7,6 @@ Here's my Vanilla JavaScript implementation:
 - 184 lines of code total (compared to the official vanilla JS TodoMVC from 6 years ago was 900+ LOC)
 - No build tools
 - JavaScript modules
-- Initial version took only 60 minutes total to write, then ~30 min of refactoring [commit](https://github.com/1Marc/todomvc-vanillajs-2022/tree/fb3c61ed104c440f0c29e3a074b6777c791aa2f6)
 
 [View the working example on GitHub pages](https://1marc.github.io/todomvc-vanillajs-2022/)
 
@@ -24,6 +23,12 @@ People were concerned about scalabillty of apps like this since there's no compo
 Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/app-architecture
 
 Note: I realize it is a bit ridiculous to say the word "scalable" in the context of a todo app, but this should more be looked at as a blueprint for building something bigger. I plan to make more ambitious examples in the future to show what's possible.
+
+## Initial Version
+
+This took only 60 minutes total to write, then ~30 min of refactoring: [see commit here](https://github.com/1Marc/todomvc-vanillajs-2022/tree/fb3c61ed104c440f0c29e3a074b6777c791aa2f6)
+
+How it came together so quickly was waht initially got me pumped about this.
 
 ## License
 
