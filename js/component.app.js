@@ -1,6 +1,6 @@
 import { replaceHTML } from "./helpers.js";
 export class AppComponent {
-	constructor($root, Todos) {
+	constructor($root, Todos, filter) {
 		this.$ = {
 			input:      $root.querySelector('.new-todo'),
 			toggleAll:  $root.querySelector('.toggle-all'),
@@ -23,7 +23,7 @@ export class AppComponent {
 			}
 		};
 		this.Todos = Todos;
-		this.filter = false;
+		this.filter = filter;
 		this._bindEvents();
 		this.render();
 	}
@@ -39,7 +39,8 @@ export class AppComponent {
 	}
 	render( filter ) {
 		const count = this.Todos.all().length;
-		if (filter) this.$.setActiveFilter(filter);
+		if (filter !== undefined) this.filter = filter;
+		this.$.setActiveFilter(this.filter);
 		this.$.showMain(count);
 		this.$.showFooter(count);
 		this.$.showClear(this.Todos.hasCompleted());

@@ -1,9 +1,10 @@
 import { delegate, emptyElement, insertHTML } from './helpers.js';
 
 export class TodoListComponent {
-	constructor($root, Todos) {
+	constructor($root, Todos, filter) {
 		this.$root = $root;
 		this.Todos = Todos;
+		this.filter = filter;
 		this._bindEvents();
 		this.render();
 	}
@@ -50,9 +51,10 @@ export class TodoListComponent {
 		li.querySelector('.edit').value = todo.title;
 		return li;
 	}
-	render ( viewFilter ) {
+	render ( filter ) {
+		if (filter !== undefined) this.filter = filter;
 		emptyElement(this.$root);
-		this.Todos.all(viewFilter).forEach(todo => {
+		this.Todos.all(this.filter).forEach(todo => {
 			this.$root.appendChild( this.renderTodo(todo) );
 		});
 	}
