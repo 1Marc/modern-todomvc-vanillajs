@@ -1,13 +1,17 @@
-export const addEvent = (el, selector, event, handler) =>{
-    el.querySelector(selector).addEventListener(event, e => handler(e));
-}
-
 export const getURLHash = () => document.location.hash.replace(/^#\//, '');
 
-export const insertAfterBegin = (el, markup) => el.insertAdjacentHTML('afterbegin', markup);
+export const delegate = (el, selector, event, handler) => {
+    el.addEventListener(event, e => {
+        if (e.target.matches(selector)) handler(e, el);
+    });
+}
 
-export const removeChildNodes = el => {
+export const insertHTML = (el, markup) => {
+	el.insertAdjacentHTML('afterbegin', markup);
+}
+
+export const emptyElement = el => {
     while (el.hasChildNodes()) {
-        el.removeChild(el.lastChild)
-    }
+		el.removeChild(el.lastChild);
+	}
 }
