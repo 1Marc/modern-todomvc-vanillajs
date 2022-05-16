@@ -30,7 +30,7 @@ The initial version coming together in only 60 minutes, then ~30 min of refactor
 
 How quick it was to get working was what initially got me pumped about all of the progress that has happened in the core JavaScript language.
 
-## Learnings from the Code Base
+## Highlights / Potential Learnings from the Code
 
 ### Sanitization
 
