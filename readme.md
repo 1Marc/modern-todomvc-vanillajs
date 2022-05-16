@@ -87,6 +87,33 @@ export const emptyElement = el => {
 
 Everything the App touches is scoped to the `App.$.*` namespace. This makes it pretty clear to know what in the DOM we'll actually be touching and modifying in our app.
 
+```javascript
+$: {
+	input:		document.querySelector('.new-todo'),
+	toggleAll:	document.querySelector('.toggle-all'),
+	clear:		document.querySelector('.clear-completed'),
+	list:		document.querySelector('.todo-list'),
+	count:		document.querySelector('.todo-count'),
+	setActiveFilter: filter => {
+		document.querySelectorAll('.filters a').forEach(el => el.classList.remove('selected')),
+		document.querySelector(`.filters [href="#/${filter}"]`).classList.add('selected');
+	},
+	showMain: show =>
+		document.querySelector('.main').style.display = show ? 'block': 'none',
+	showClear: show =>
+		document.querySelector('.clear-completed').style.display = show ? 'block': 'none',
+	showFooter: show =>
+		document.querySelector('.footer').style.display = show ? 'block': 'none',
+	displayCount: count => {
+		emptyElement(App.$.count);
+		insertHTML(App.$.count, `
+			<strong>${count}</strong>
+			${count === 1 ? 'item' : 'items'} left
+		`);
+	}
+},
+```
+
 ### Send Events on a Class Instance with Subclassing EventTarget
 
 We can subclass EventTarget in order to send out events on a class instance for our App to bind to:
