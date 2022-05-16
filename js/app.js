@@ -12,7 +12,7 @@ const App = {
 		count:			document.querySelector('.todo-count'),
 		setActiveFilter: filter => {
 			document.querySelectorAll('.filters a').forEach(el => el.classList.remove('selected')),
-			document.querySelector(`[href="#/${filter}"]`).classList.add('selected');
+			document.querySelector(`.filters [href="#/${filter}"]`).classList.add('selected');
 		},
 		showMain: show =>
 			document.querySelector('.main').style.display = show ? 'block': 'none',
@@ -36,7 +36,7 @@ const App = {
 			App.render();
 		});
 		App.$.input.addEventListener('keyup', e => {
-			if (e.key === 'Enter' && $input.value) {
+			if (e.key === 'Enter' && e.target.value.length) {
 				Todos.add({ title: e.target.value, completed: false, id: "id_" + Date.now() })
 				App.$.input.value = '';
 			}
