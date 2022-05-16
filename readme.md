@@ -71,9 +71,13 @@ insertAdjacentHTML is [much faster](https://www.measurethat.net/Benchmarks/Show/
 export const insertHTML = (el, markup) => {
 	el.insertAdjacentHTML('afterbegin', markup);
 }
+```
 
+I also quite like this remove all child nodes helper which is a fast way to clear the contents of an element:
+
+```javascript
 export const emptyElement = el => {
-    while (el.hasChildNodes()) {
+	while (el.hasChildNodes()) {
 		el.removeChild(el.lastChild);
 	}
 }
