@@ -1,4 +1,4 @@
-import { delegate } from './helpers.js';
+import { delegate, emptyElement, insertHTML } from './helpers.js';
 
 export class TodoListComponent {
 	constructor($root, Todos) {
@@ -15,20 +15,21 @@ export class TodoListComponent {
 	}
 	_bindEvents () {
 		this.todoEvent('click', '.destroy', (todo) => this.Todos.update(todo));
-		this.todoEvent('click', '.toggle', (todo) =>  this.Todos.toggle(todo));
+		this.todoEvent('click', '.toggle', (todo) => this.Todos.toggle(todo));
 		this.todoEvent('dblclick', 'label', (_, $li) => {
 			$li.classList.add('editing');
 			$li.querySelector('.edit').focus();
 		});
 		this.todoEvent('keyup', '.edit', (todo, $li, e) => {
 			let $input = $li.querySelector('.edit');
-			if (e.key === 'Enter') this.Todos.update({ ...todo, title: $input.value })
+			if (e.key === 'Enter' && $input.value.length)
+				this.Todos.update({ ...todo, title: $input.value })
 			if (e.key === 'Escape') {
 				$input.value = todo.title;
 				this.Todos.revert();
 			}
 		});
-		this.todoEvent('blur', '.edit', (todo, $li, e) => {
+		this.todoEvent('blur', '.edit', (todo, $li) => {
 			const title = $li.querySelector('.edit').value;
 			this.Todos.update({ ...todo, title });
 		});
@@ -37,20 +38,20 @@ export class TodoListComponent {
 		const li = document.createElement('li');
 		li.dataset.id = todo.id;
 		if (todo.completed) { li.classList.add('completed'); }
-		li.innerHTML = `
+		insertHTML(li, `
 			<div class="view">
 				<input class="toggle" type="checkbox" ${todo.completed ? 'checked' : ''}>
 				<label></label>
 				<button class="destroy"></button>
 			</div>
 			<input class="edit">
-		`;
+		`);
 		li.querySelector('label').textContent = todo.title;
 		li.querySelector('.edit').value = todo.title;
 		return li;
 	}
 	render ( viewFilter ) {
-		this.$root.innerHTML = '';
+		emptyElement(this.$root);
 		this.Todos.all(viewFilter).forEach(todo => {
 			this.$root.appendChild( this.renderTodo(todo) );
 		});

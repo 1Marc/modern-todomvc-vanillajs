@@ -1,3 +1,4 @@
+import { replaceHTML } from "./helpers.js";
 export class AppComponent {
 	constructor($root, Todos) {
 		this.$ = {
@@ -6,7 +7,7 @@ export class AppComponent {
 			clear:      $root.querySelector('.clear-completed'),
 			setActiveFilter: filter => {
 				$root.querySelectorAll('.filters a').forEach(el => el.classList.remove('selected')),
-				$root.querySelector(`[href="#/${filter}"]`).classList.add('selected');
+				$root.querySelector(`.filters [href="#/${filter}"]`).classList.add('selected');
 			},
 			showMain: show =>
 				$root.querySelector('.main').style.display = show ? 'block': 'none',
@@ -14,11 +15,12 @@ export class AppComponent {
 				$root.querySelector('.clear-completed').style.display = show ? 'block': 'none',
 			showFooter: show =>
 				$root.querySelector('.footer').style.display = show ? 'block': 'none',
-			displayCount: count =>
-				$root.querySelector('.todo-count').innerHTML = `
+			displayCount: count => {
+				replaceHTML($root.querySelector('.todo-count'), `
 					<strong>${count}</strong>
 					${count === 1 ? 'item' : 'items'} left
-				`
+				`)
+			}
 		};
 		this.Todos = Todos;
 		this.filter = false;
