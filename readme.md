@@ -2,12 +2,11 @@
 
 Seems it is pretty simple to build fairly complex things these days in modern JavaScript. We can take advantage of most features without crazy hacks. 
 
-Here's my Vanilla JavaScript implementation – initial version took 60 minutes total to write (see first commit)
+Here's my Vanilla JavaScript implementation with Class Component Modules (App Architecture Branch)
 
-- 167 lines of code total (compared to the official vanilla JS TodoMVC from 6 years ago was 900+ LOC)
+- ~200 lines of code total (compared to the official vanilla JS TodoMVC from 6 years ago was 900+ LOC)
 - No build tools
 - JavaScript modules
-- Initial implementation done in an hour, then cleaned it up with ~30 min of refactoring
 
 [View the working example on GitHub pages](https://1marc.github.io/todomvc-vanillajs-2022/)
 
@@ -17,22 +16,20 @@ Criticism, PRs and feedback welcome!
 
 # Additional Examples
 
-## Memory Optimization: Event Delegation
+## App Architecture
 
-Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/event-delgation
-
-People were concerned about the performance of re-rendering while binding events directly to new elements, so here's a branch of the same code but using [event delegation](https://github.com/1Marc/todomvc-vanillajs-2022/blob/event-delgation/js/app.js#L51-L78). 
-
-This branch binds the events to the higher level list element which is persistent and looks up which todo was clicked using a data attribute.
-
-## Scalability: Application Architecture
+People were concerned about scalabillty of apps like this since there's no components and it's all one App. So I extracted the TodoList and App component and wired the components together on the app-architecture branch.
 
 Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/app-architecture
 
-Then people were concerned about scalabillty of apps like this since there's no components and it's all one App. So I built on the event delegation branch and extracted the TodoList and App component and wired the components together.
+Note: I realize it is a bit ridiculous to say the word "scalable" in the context of a todo app, but this should more be looked at as a blueprint for building something bigger. I plan to make more ambitious examples in the future to show what's possible.
 
-Also note I realize it is a bit ridiculous to say the word "scalable" in the context of a todo app, but this should more be looked at as a blueprint for building something bigger. I plan to make more ambitious examples in the future to show what's possible.
+## Initial Code
+
+The initial version coming together in only 60 minutes, then ~30 min of refactoring: [see commit here](https://github.com/1Marc/todomvc-vanillajs-2022/tree/fb3c61ed104c440f0c29e3a074b6777c791aa2f6)
+
+How quick it was to get working was what initially got me pumped about all of the progress that has happened in the core JavaScript language.
 
 ## License
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" rel="dct:type">work</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://sindresorhus.com" property="cc:attributionName" rel="cc:attributionURL">TasteJS</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" rel="dct:type">work</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://sindresorhus.com" property="cc:attributionName" rel="cc:attributionURL">TasteJS</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.
