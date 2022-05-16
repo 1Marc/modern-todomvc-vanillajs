@@ -24,11 +24,11 @@ Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/app-architecture
 
 Note: I realize it is a bit ridiculous to say the word "scalable" in the context of a todo app, but this should more be looked at as a blueprint for building something bigger. I plan to make more ambitious examples in the future to show what's possible.
 
-## Initial Version
+## Initial Code
 
-This took only 60 minutes total to write, then ~30 min of refactoring: [see commit here](https://github.com/1Marc/todomvc-vanillajs-2022/tree/fb3c61ed104c440f0c29e3a074b6777c791aa2f6)
+The initial version coming together in only 60 minutes, then ~30 min of refactoring: [see commit here](https://github.com/1Marc/todomvc-vanillajs-2022/tree/fb3c61ed104c440f0c29e3a074b6777c791aa2f6)
 
-How it came together so quickly was what initially got me pumped about this.
+How quick it was to get working was what initially got me pumped about all of the progress that has happened in the core JavaScript language.
 
 ## License
 

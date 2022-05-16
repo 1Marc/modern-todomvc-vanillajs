@@ -28,9 +28,9 @@ const App = {
 			`);
 		}
 	},
-	filter: getURLHash(),
 	init() {
 		Todos.addEventListener('save', App.render);
+		App.filter = getURLHash();
 		window.addEventListener('hashchange', () => {
 			App.filter = getURLHash();
 			App.render();
@@ -95,7 +95,7 @@ const App = {
 	},
 	render() {
 		const count = Todos.all().length;
-		if (App.filter) App.$.setActiveFilter(App.filter);
+		App.$.setActiveFilter(App.filter);
 		emptyElement(App.$.list);
 		Todos.all(App.filter).forEach(todo => {
 			App.$.list.appendChild( App.createTodoItem(todo) );
