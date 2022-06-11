@@ -8,7 +8,6 @@
     "todomvc-app-css": "^2.0.0"
   },
   "dependenciesComments": {
-    "todomvc-common": "TodoMVC boilerplate files (not in use, just copy/pasted into css/base.css)",
     "todomvc-app-css": "TodoMVC boilerplate CSS (not in use, just copy/pasted into css/index.css)"
   }
 }
