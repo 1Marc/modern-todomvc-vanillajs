@@ -30,9 +30,9 @@ The initial version came together in only 60 minutes, then ~30 min of refactorin
 
 How quick it was to get working was what initially got me pumped about all of the progress in the core JavaScript language.
 
-## Highlights / Potential Learnings from the Code
+# Five Vanilla JavaScript Tips from the Code
 
-### Sanitization
+## 1. Sanitization
 
 User input must be sanitized before being displayed in the HTML to prevent XSS (Cross-Site Scripting). Therefore new todo titles are added to the template string using `textContent`
 
@@ -40,7 +40,7 @@ User input must be sanitized before being displayed in the HTML to prevent XSS (
 li.querySelector('label').textContent = todo.title;
 ```
 
-### Event Delegation
+## 2. Event Delegation
 
 Since we render the todos frequently, it doesn't make sense to bind event listeners and clean them up every time. Instead, we bind our events to the parent list that always exists in the DOM and infer which todo was clicked or edited by setting the data attribute of the item `$li.dataset.id = todo.id;`
 
@@ -63,7 +63,7 @@ delegate(App.$.list, selector, event, e => {
 });
 ```
 
-### insertAdjacentHTML
+## 3. insertAdjacentHTML
 
 insertAdjacentHTML is [much faster](https://www.measurethat.net/Benchmarks/Show/10750/0/insertadjacenthtml-vs-innerhtml#latest_results_block) than innerHTML because it doesn't have to destroy the DOM first before inserting.
 
@@ -83,7 +83,7 @@ export const emptyElement = el => {
 }
 ```
 
-### Grouping DOM Selectors & Methods
+## 4. Grouping DOM Selectors & Methods
 
 DOM selectors and modifications are scoped to the `App.$.*` namespace. In a way, it makes it self-documenting what our App could potentially modify in the document.
 
@@ -114,7 +114,7 @@ $: {
 },
 ```
 
-### Send Events on a Class Instance with Subclassing EventTarget
+## 5. Send Events on a Class Instance with Subclassing EventTarget
 
 We can subclass EventTarget to send out events on a class instance for our App to bind to:
 
