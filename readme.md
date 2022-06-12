@@ -1,6 +1,6 @@
 # TodoMVC App Written in Vanilla JS in 2022
 
-Seems it is pretty straightforward to build reasonably complex things using only modern JavaScript these days! We can take advantage of most newer features without hacks or polyfills.
+It seems straightforward to build reasonably complex things using only modern JavaScript these days! We can take advantage of most newer features without hacks or polyfills.
 
 Here's my Vanilla JavaScript implementation:
 
