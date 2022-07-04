@@ -89,21 +89,21 @@ DOM selectors and modifications are scoped to the `App.$.*` namespace. In a way,
 
 ```javascript
 $: {
-	input:		document.querySelector('.new-todo'),
-	toggleAll:	document.querySelector('.toggle-all'),
-	clear:		document.querySelector('.clear-completed'),
-	list:		document.querySelector('.todo-list'),
-	count:		document.querySelector('.todo-count'),
+	input:		document.querySelector('[data-todo="new"]'),
+	toggleAll:	document.querySelector('[data-todo="toggle-all"]'),
+	clear:		document.querySelector('[data-todo="clear-completed"]'),
+	list:		document.querySelector('[data-todo="list"]'),
+	count:		document.querySelector('[data-todo="count"]'),
 	setActiveFilter: filter => {
-		document.querySelectorAll('.filters a').forEach(el => el.classList.remove('selected')),
-		document.querySelector(`.filters [href="#/${filter}"]`).classList.add('selected');
+		document.querySelectorAll('[data-todo="filters"] a').forEach(el => el.classList.remove('selected')),
+		document.querySelector(`[data-todo="filters"] [href="#/${filter}"]`).classList.add('selected');
 	},
 	showMain: show =>
-		document.querySelector('.main').style.display = show ? 'block': 'none',
+		document.querySelector('[data-todo="main"]').style.display = show ? 'block': 'none',
 	showClear: show =>
-		document.querySelector('.clear-completed').style.display = show ? 'block': 'none',
+		document.querySelector('[data-todo="clear-completed"]').style.display = show ? 'block': 'none',
 	showFooter: show =>
-		document.querySelector('.footer').style.display = show ? 'block': 'none',
+		document.querySelector('[data-todo="main"]').style.display = show ? 'block': 'none',
 	displayCount: count => {
 		emptyElement(App.$.count);
 		insertHTML(App.$.count, `
@@ -132,6 +132,20 @@ The App listens to that event and re-renders itself based on the new store data:
  
 ```javascript
 Todos.addEventListener('save', App.render);
+```
+
+## 6. Use Data Attributes in Markup & Selectors
+
+One issue with JavaScript is your selectors get tightly coupled to the generated DOM.
+
+To fix this, classes should be used for CSS rules, and data atributes for JavaScript behavior.
+
+```html
+<div data-jsmodule="behavior"></div>
+```
+
+```js
+document.querySelector('[data-jsmodule="behavior"]')
 ```
 
 ## License
