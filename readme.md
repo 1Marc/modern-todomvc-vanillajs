@@ -8,7 +8,7 @@ Here's my Vanilla JavaScript implementation:
 - No build tools
 - JavaScript modules
 
-<a href="https://1marc.github.io/todomvc-vanillajs-2022/" target="_blank">View the working example on GitHub pages</a>
+<a href="https://1marc.github.io/todomvc-vanillajs-2022/" target="_new">View the working example on GitHub pages</a>
 
 # Additional Examples
 
