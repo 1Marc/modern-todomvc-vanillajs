@@ -35,7 +35,13 @@ Criticism, PRs, and feedback are welcome!
 
 ## Example Components Using this Architecture
 
-[Flexible Vanilla JS View Switcher](https://codepen.io/1Marc/pen/poLmXZR)
+[Vanilla JavaScript View Switcher Based on Hash Change](https://codepen.io/1Marc/pen/poLmXZR)
+
+<a href="https://codepen.io/1Marc/pen/bGvPRdy"><img src="https://user-images.githubusercontent.com/19269/189225506-1c1838e1-5b2a-408b-802a-dfe71b2f703c.png" width="500" /></a>
+
+[Vanilla JavaScript Countdown Clock](https://codepen.io/1Marc/pen/bGvPRdy)
+
+<a href="https://codepen.io/1Marc/pen/bGvPRdy"><img src="https://user-images.githubusercontent.com/19269/189225317-bb2ce1fb-a734-4193-beb1-670b5d6fbb04.png" width="500" /></a>
 
 ## License
 
