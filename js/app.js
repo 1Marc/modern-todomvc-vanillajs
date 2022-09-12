@@ -1,5 +1,7 @@
 import { delegate, getURLHash, insertHTML, emptyElement } from "./helpers.js";
 import { TodoStore } from "./store.js";
+import { html, render } from "/node_modules/lit-html/lit-html.js";
+import { repeat } from "/node_modules/lit-html/directives/repeat.js";
 
 const Todos = new TodoStore("todo-vanillajs-2022");
 
@@ -73,22 +75,29 @@ const App = {
 		});
 	},
 	bindTodoEvents() {
-		App.todoEvent("click", '[data-todo="destroy"]', (todo) =>
-			Todos.remove(todo)
-		);
+		App.todoEvent("click", '[data-todo="destroy"]', (todo, $li) => {
+			$li.classList.add("remove");
+			setTimeout(function () {
+				Todos.remove(todo);
+			}, 500);
+		});
 		App.todoEvent("click", '[data-todo="toggle"]', (todo) =>
 			Todos.toggle(todo)
 		);
 		App.todoEvent("dblclick", '[data-todo="label"]', (_, $li) => {
 			$li.classList.add("editing");
 			$li.querySelector('[data-todo="edit"]').focus();
+			$li.querySelector(".new").classList.remove("new");
 		});
 		App.todoEvent("keyup", '[data-todo="edit"]', (todo, $li, e) => {
 			let $input = $li.querySelector('[data-todo="edit"]');
-			if (e.key === "Enter" && $input.value)
+			if (e.key === "Enter" && $input.value) {
 				Todos.update({ ...todo, title: $input.value });
+				$li.classList.remove("editing");
+			}
 			if (e.key === "Escape") {
 				$input.value = todo.title;
+				$li.classList.remove("editing");
 				App.render();
 			}
 		});
@@ -98,35 +107,35 @@ const App = {
 		});
 	},
 	createTodoItem(todo) {
-		const li = document.createElement("li");
-		li.dataset.id = todo.id;
-		if (todo.completed) {
-			li.classList.add("completed");
-		}
-		insertHTML(
-			li,
-			`
-			<div class="view">
-				<input data-todo="toggle" class="toggle" type="checkbox" ${
-					todo.completed ? "checked" : ""
-				}>
-				<label data-todo="label"></label>
-				<button class="destroy" data-todo="destroy"></button>
-			</div>
-			<input class="edit" data-todo="edit">
-		`
-		);
-		li.querySelector('[data-todo="label"]').textContent = todo.title;
-		li.querySelector('[data-todo="edit"]').value = todo.title;
-		return li;
+		const item = html`
+			<li data-id="${todo.id}">
+				<div class="view new">
+					<input
+						data-todo="toggle"
+						type="checkbox"
+						class="toggle"
+						?checked=${todo.completed}
+					/>
+					<label data-todo="label">${todo.title}</label>
+					<button class="destroy" data-todo="destroy"></button>
+				</div>
+				<input class="edit" data-todo="edit" value="${todo.title}" />
+			</li>
+		`;
+		return item;
 	},
 	render() {
 		const count = Todos.all().length;
 		App.$.setActiveFilter(App.filter);
-		emptyElement(App.$.list);
-		Todos.all(App.filter).forEach((todo) => {
-			App.$.list.appendChild(App.createTodoItem(todo));
-		});
+		const todos = Todos.all(App.filter);
+		render(
+			repeat(
+				todos,
+				(todo) => todo.id,
+				(todo) => App.createTodoItem(todo)
+			),
+			App.$.list
+		);
 		App.$.showMain(count);
 		App.$.showFooter(count);
 		App.$.showClear(Todos.hasCompleted());

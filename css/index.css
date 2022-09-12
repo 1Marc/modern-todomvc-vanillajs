@@ -390,3 +390,36 @@ html .clear-completed:active {
 	box-shadow: 0 0 2px 2px #cf7d7d;
 	outline: 0;
 }
+
+@keyframes append-animate {
+	from {
+		transform: translateX(-100%);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0%);
+		opacity: 1;
+	}
+}
+
+@keyframes remove-animate {
+	from {
+		transform: translateX(0%);
+		opacity: 1;
+	}
+	to {
+		transform: translateX(-100%);
+		opacity: 0;
+	}
+}
+
+.todo-list li {
+	overflow: hidden;
+}
+/* animate new box */
+.new {
+	animation: append-animate 0.5s ease-out;
+}
+.remove {
+	animation: remove-animate 0.5s ease-in;
+}
