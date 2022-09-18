@@ -10,8 +10,4 @@ export const insertHTML = (el, markup) => {
 	el.insertAdjacentHTML('afterbegin', markup);
 }
 
-export const emptyElement = el => {
-    while (el.hasChildNodes()) {
-		el.removeChild(el.lastChild);
-	}
-}
+export const emptyElement = el => el.replaceChildren()
