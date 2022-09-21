@@ -3,7 +3,7 @@ import { TodoStore } from "./store.js";
 import { html, render } from "/node_modules/lit-html/lit-html.js";
 import { repeat } from "/node_modules/lit-html/directives/repeat.js";
 
-const Todos = new TodoStore("todo-vanillajs-2022");
+const Todos = new TodoStore('todo-modern-vanillajs');
 
 const App = {
 	$: {
