@@ -1,7 +1,8 @@
 {
 	"private": true,
 	"scripts": {
-		"start": "python3 -m http.server 1337"
+		"start": "python3 -m http.server 1337",
+		"format": "npx prettier --write ."
 	},
 	"dependencies": {
 		"todomvc-app-css": "^2.0.0",
