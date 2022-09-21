@@ -36,9 +36,27 @@ const App = {
 			`
 			);
 		},
+		removeTodo(id) {
+			App.$.list.querySelector(`[data-id="${id}"]`).remove();
+		},
+		toggleTodo(todo) {
+			const el = App.$.list.querySelector(`[data-id="${todo.id}"]`);
+			if (todo.completed) {
+				el.classList.add('completed');
+				el.querySelector('input').setAttribute('checked', true);
+			} else {
+				el.classList.remove('completed');
+				el.querySelector('input').removeAttribute('checked');
+			}
+		},
 	},
 	init() {
 		Todos.addEventListener('save', App.render);
+		Todos.addEventListener('add', (e) => App.renderAdd(e.detail));
+		Todos.addEventListener('remove', (e) => App.renderRemove(e.detail));
+		Todos.addEventListener('toggle', (e) => App.renderToggle(e.detail));
+		Todos.addEventListener('update', (e) => App.renderUpdate(e.detail));
+		Todos.addEventListener('clear', (e) => App.renderClear(e.detail));
 		App.filter = getURLHash();
 		window.addEventListener('hashchange', () => {
 			App.filter = getURLHash();
@@ -107,18 +125,39 @@ const App = {
 		li.querySelector('[data-todo="edit"]').value = todo.title;
 		return li;
 	},
-	render() {
+	_renderUI() {
 		const count = Todos.all().length;
 		App.$.setActiveFilter(App.filter);
-		replaceWith(
-			App.$.list,
-			Todos.all(App.filter).map((todo) => App.createTodoItem(todo))
-		);
 		App.$.showMain(count);
 		App.$.showFooter(count);
 		App.$.showClear(Todos.hasCompleted());
 		App.$.toggleAll.checked = Todos.isAllCompleted();
 		App.$.displayCount(Todos.all('active').length);
+	},
+	render() {
+		replaceWith(
+			App.$.list,
+			Todos.all(App.filter).map((todo) => App.createTodoItem(todo))
+		);
+		App._renderUI();
+	},
+	renderAdd(todo) {
+		App.$.list.append(App.createTodoItem(todo));
+		App._renderUI();
+	},
+	renderRemove(todoId) {
+		App.$.removeTodo(todoId);
+		App._renderUI();
+	},
+	renderToggle(todo) {
+		App.$.toggleTodo(todo);
+		App._renderUI();
+	},
+	renderClear(todos) {
+		todos.forEach((todo) => {
+			App.$.removeTodo(todo.id);
+		});
+		App._renderUI();
 	},
 };
 
