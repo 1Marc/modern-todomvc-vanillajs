@@ -30,13 +30,13 @@ Note: I realize it is silly to say the word "scalable" in the context of a todo 
 
 Since I'm rendering everything on every update of the model from scratch, this can cause performance issues on long lists.
 
-Here's a branch sending specific events with context from the model so we can make DOM updates more selectively as we need them.
+Here's a branch sending specific events with context from the model so we can make DOM updates more selectively as we need them ([see code diff](https://github.com/1Marc/todomvc-vanillajs-2022/commit/fc89da1a6bd15489d5256575a4e193e11efd8d43)).
 
 Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/performant-rendering
 
 ## More Performant DOM Updates with lit-html (plus animations!)
 
-We can acheieve the same performant DOM updates with far less code by adopting lit-html using the repeat directive. ([see code diff](https://github.com/1Marc/todomvc-vanillajs-2022/commit/ef86a73166029991dc88c649f7ec4931a2a96c86))
+We can acheieve the same performant DOM updates with far less code by adopting lit-html using the repeat directive ([see code diff](https://github.com/1Marc/todomvc-vanillajs-2022/commit/ef86a73166029991dc88c649f7ec4931a2a96c86)).
 
 Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/animation-lithtml
 
