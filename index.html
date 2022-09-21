@@ -20,14 +20,21 @@
 			</header>
 			<!-- This section should be hidden by default and shown when there are todos -->
 			<section class="main" data-todo="main">
-				<input id="toggle-all" class="toggle-all" type="checkbox" data-todo="toggle-all" />
+				<input
+					id="toggle-all"
+					class="toggle-all"
+					type="checkbox"
+					data-todo="toggle-all"
+				/>
 				<label for="toggle-all">Mark all as complete</label>
 				<ul class="todo-list" data-todo="list"></ul>
 			</section>
 			<!-- This footer should be hidden by default and shown when there are todos -->
 			<footer class="footer" data-todo="footer">
 				<!-- This should be `0 items left` by default -->
-				<span class="todo-count" data-todo="count"><strong>0</strong> items left</span>
+				<span class="todo-count" data-todo="count"
+					><strong>0</strong> items left</span
+				>
 				<!-- Remove this if you don't implement routing -->
 				<ul class="filters" data-todo="filters">
 					<li>
@@ -41,7 +48,9 @@
 					</li>
 				</ul>
 				<!-- Hidden if no completed items are left ↓ -->
-				<button class="clear-completed" data-todo="clear-completed">Clear completed</button>
+				<button class="clear-completed" data-todo="clear-completed">
+					Clear completed
+				</button>
 			</footer>
 		</section>
 		<footer class="info">
