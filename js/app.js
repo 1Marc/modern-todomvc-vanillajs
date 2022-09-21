@@ -1,4 +1,4 @@
-import { delegate, getURLHash, replaceHTML, replaceWith } from './helpers.js';
+import { delegate, getURLHash, replaceHTML } from './helpers.js';
 import { TodoStore } from './store.js';
 
 const Todos = new TodoStore('todo-modern-vanillajs');
@@ -110,10 +110,7 @@ const App = {
 	render() {
 		const count = Todos.all().length;
 		App.$.setActiveFilter(App.filter);
-		replaceWith(
-			App.$.list,
-			Todos.all(App.filter).map((todo) => App.createTodoItem(todo))
-		);
+		App.$.list.replaceChildren(...Todos.all(App.filter).map((todo) => App.createTodoItem(todo)));
 		App.$.showMain(count);
 		App.$.showFooter(count);
 		App.$.showClear(Todos.hasCompleted());
