@@ -24,9 +24,7 @@ export const TodoStore = class extends EventTarget {
 				: this.todos;
 	}
 	_readStorage() {
-		this.todos = JSON.parse(
-			window.localStorage.getItem(this.localStorageKey) || "[]"
-		);
+		this.todos = JSON.parse(window.localStorage.getItem(this.localStorageKey) || "[]");
 	}
 	_save() {
 		window.localStorage.setItem(
