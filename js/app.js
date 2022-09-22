@@ -1,4 +1,4 @@
-import { delegate, getURLHash, replaceHTML } from "./helpers.js";
+import { delegate, getURLHash, insertHTML, replaceHTML } from "./helpers.js";
 import { TodoStore } from "./store.js";
 
 const Todos = new TodoStore("todo-modern-vanillajs");
@@ -95,14 +95,17 @@ const App = {
 		if (todo.completed) {
 			li.classList.add("completed");
 		}
-		li.innerHTML = `
+		insertHTML(
+			li,
+			`
 			<div class="view">
 				<input data-todo="toggle" class="toggle" type="checkbox" ${todo.completed ? "checked" : ""}>
 				<label data-todo="label"></label>
 				<button class="destroy" data-todo="destroy"></button>
 			</div>
 			<input class="edit" data-todo="edit">
-		`;
+		`
+		);
 		li.querySelector('[data-todo="label"]').textContent = todo.title;
 		li.querySelector('[data-todo="edit"]').value = todo.title;
 		return li;
