@@ -2,25 +2,36 @@ import { replaceHTML } from "./helpers.js";
 export class AppComponent {
 	constructor($root, Todos, filter) {
 		this.$ = {
-			input:      $root.querySelector('.new-todo'),
-			toggleAll:  $root.querySelector('.toggle-all'),
-			clear:      $root.querySelector('.clear-completed'),
-			setActiveFilter: filter => {
-				$root.querySelectorAll('.filters a').forEach(el => el.classList.remove('selected')),
-				$root.querySelector(`.filters [href="#/${filter}"]`).classList.add('selected');
+			input: $root.querySelector(".new-todo"),
+			toggleAll: $root.querySelector(".toggle-all"),
+			clear: $root.querySelector(".clear-completed"),
+			showMain(show) {
+				$root.querySelector(".main").style.display = show ? "block" : "none";
 			},
-			showMain: show =>
-				$root.querySelector('.main').style.display = show ? 'block': 'none',
-			showClear: show =>
-				$root.querySelector('.clear-completed').style.display = show ? 'block': 'none',
-			showFooter: show =>
-				$root.querySelector('.footer').style.display = show ? 'block': 'none',
-			displayCount: count => {
-				replaceHTML($root.querySelector('.todo-count'), `
+			showClear(show) {
+				$root.querySelector(".clear-completed").style.display = show ? "block" : "none";
+			},
+			showFooter(show) {
+				$root.querySelector(".footer").style.display = show ? "block" : "none";
+			},
+			setActiveFilter(filter) {
+				$root.querySelectorAll(`.filters a`).forEach((el) => {
+					if (el.matches(`[href="#/${filter}"]`)) {
+						el.classList.add("selected");
+					} else {
+						el.classList.remove("selected");
+					}
+				});
+			},
+			displayCount(count) {
+				replaceHTML(
+					$root.querySelector(".todo-count"),
+					`
 					<strong>${count}</strong>
-					${count === 1 ? 'item' : 'items'} left
-				`)
-			}
+					${count === 1 ? "item" : "items"} left
+				`
+				);
+			},
 		};
 		this.Todos = Todos;
 		this.filter = filter;

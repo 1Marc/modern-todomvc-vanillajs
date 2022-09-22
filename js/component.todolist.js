@@ -1,4 +1,4 @@
-import { delegate, insertHTML } from "./helpers.js";
+import { delegate } from "./helpers.js";
 
 export class TodoListComponent {
 	constructor($root, Todos, filter) {
@@ -41,25 +41,20 @@ export class TodoListComponent {
 		if (todo.completed) {
 			li.classList.add("completed");
 		}
-		insertHTML(
-			li,
-			`
+		li.innerHTML = `
 			<div class="view">
 				<input class="toggle" type="checkbox" ${todo.completed ? "checked" : ""}>
 				<label></label>
 				<button class="destroy"></button>
 			</div>
 			<input class="edit">
-		`
-		);
+		`;
 		li.querySelector("label").textContent = todo.title;
 		li.querySelector(".edit").value = todo.title;
 		return li;
 	}
 	render(filter) {
 		if (filter !== undefined) this.filter = filter;
-		this.$root.replaceChildren(
-			...this.Todos.all(this.filter).map((todo) => this.renderTodo(todo))
-		);
+		this.$root.replaceChildren(...this.Todos.all(this.filter).map((todo) => this.renderTodo(todo)));
 	}
 }

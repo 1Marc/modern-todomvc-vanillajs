@@ -6,8 +6,6 @@ export const delegate = (el, selector, event, handler) => {
 	});
 }
 
-export const insertHTML = (el, markup) => el.insertAdjacentHTML('afterbegin', markup);
-
 export const replaceHTML = (el, html) => {
 	el.replaceChildren();
 	el.insertAdjacentHTML("afterbegin", html);
