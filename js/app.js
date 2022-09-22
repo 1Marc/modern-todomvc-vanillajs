@@ -9,6 +9,15 @@ const App = {
 		toggleAll: document.querySelector('[data-todo="toggle-all"]'),
 		clear: document.querySelector('[data-todo="clear-completed"]'),
 		list: document.querySelector('[data-todo="list"]'),
+		showMain(show) {
+			document.querySelector('[data-todo="main"]').style.display = show ? 'block' : 'none';
+		},
+		showFooter(show) {
+			document.querySelector('[data-todo="footer"]').style.display = show ? 'block' : 'none';
+		},
+		showClear(show) {
+			App.$.clear.style.display = show ? 'block' : 'none';
+		},
 		setActiveFilter(filter) {
 			document.querySelectorAll(`[data-todo="filters"] a`).forEach((el) => {
 				if (el.matches(`[href="#/${filter}"]`)) {
@@ -17,15 +26,6 @@ const App = {
 					el.classList.remove('selected');
 				}
 			});
-		},
-		showClear(show) {
-			App.$.clear.style.display = show ? 'block' : 'none';
-		},
-		showMain(show) {
-			document.querySelector('[data-todo="main"]').style.display = show ? 'block' : 'none';
-		},
-		showFooter(show) {
-			document.querySelector('[data-todo="footer"]').style.display = show ? 'block' : 'none';
 		},
 		displayCount(count) {
 			replaceHTML(
