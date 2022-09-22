@@ -6,12 +6,6 @@ export const delegate = (el, selector, event, handler) => {
 	});
 };
 
-export const replaceWith = (parent, els) => {
-	const f = document.createDocumentFragment();
-	els.forEach((el) => f.append(el));
-	parent.replaceChildren(f);
-};
-
 export const replaceHTML = (el, html) => {
 	el.replaceChildren();
 	el.insertAdjacentHTML("afterbegin", html);
