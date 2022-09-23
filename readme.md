@@ -4,11 +4,17 @@ It seems straightforward to build reasonably complex things using only modern Ja
 
 Here's my Vanilla JavaScript implementation:
 
-- 184 lines of code total (compared to the official vanilla JS TodoMVC from 6 years ago was 900+ LOC)
+- ~200 lines of code total (compared to the official vanilla JS TodoMVC from 6 years ago was 900+ LOC)
 - No build tools
 - JavaScript modules
 
 <a href="https://1marc.github.io/todomvc-vanillajs-2022/" target="_new">View the working example on GitHub pages</a>
+
+Criticism, PRs, and feedback are welcome!
+
+## Project Blog Post:
+
+[<img alt="Modern Vanilla JavaScript TodoMVC in 2022 Article" width="750" src="https://static.frontendmasters.com/assets/blog/2022/vanilla-javascript-todomvc.jpg" />](https://frontendmasters.com/blog/vanilla-javascript-todomvc/)
 
 # Additional Examples
 
@@ -26,7 +32,7 @@ Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/app-architecture
 
 Note: I realize it is silly to say the word "scalable" in the context of a todo app, but this should be looked at as a blueprint for building something more extensive. I plan to make more ambitious examples in the future to show what's possible.
 
-## More Granular, More Performant DOM Updates Manually
+## More Granular & Performant DOM Updates for Large Lists
 
 Since I'm rendering everything on every update of the model from scratch, this can cause performance issues on long lists.
 
@@ -34,19 +40,13 @@ Here's a branch sending specific events with context from the model so we can ma
 
 Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/performant-rendering
 
-## More Performant DOM Updates with lit-html (plus animations!)
+## More Performant DOM Updates for Large Lists with lit-html (Plus animations!)
 
 We can acheieve the same performant DOM updates with far less code by adopting lit-html using the repeat directive ([see code diff](https://github.com/1Marc/todomvc-vanillajs-2022/commit/ef86a73166029991dc88c649f7ec4931a2a96c86)).
 
 Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/animation-lithtml
 
-Criticism, PRs, and feedback are welcome!
-
-## Project Blog Post:
-
-[<img alt="Modern Vanilla JavaScript TodoMVC in 2022 Article" width="750" src="https://static.frontendmasters.com/assets/blog/2022/vanilla-javascript-todomvc.jpg" />](https://frontendmasters.com/blog/vanilla-javascript-todomvc/)
-
-## Example Components Using this Architecture
+# Example UI Components Using this Architecture
 
 [Vanilla JavaScript View Switcher Based on Hash Change](https://codepen.io/1Marc/pen/poLmXZR)
 
