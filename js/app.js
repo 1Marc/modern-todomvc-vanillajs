@@ -84,7 +84,7 @@ const App = {
 				App.render();
 			}
 		});
-		App.todoEvent("blur", '[data-todo="edit"]', (todo, $li, e) => {
+		App.todoEvent("focusout", '[data-todo="edit"]', (todo, $li, e) => {
 			const title = $li.querySelector('[data-todo="edit"]').value;
 			Todos.update({ ...todo, title });
 		});
