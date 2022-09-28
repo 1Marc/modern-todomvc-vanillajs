@@ -42,7 +42,7 @@ Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/performant-renderin
 
 ## More Performant DOM Updates for Large Lists with lit-html (Plus animations!)
 
-We can acheieve the same performant DOM updates with far less code by adopting lit-html using the repeat directive ([see code diff](https://github.com/1Marc/todomvc-vanillajs-2022/commit/ef86a73166029991dc88c649f7ec4931a2a96c86)).
+We can achieve the same performant DOM updates with far less code by adopting lit-html using the repeat directive ([see code diff](https://github.com/1Marc/todomvc-vanillajs-2022/commit/ef86a73166029991dc88c649f7ec4931a2a96c86)).
 
 Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/animation-lithtml
 
