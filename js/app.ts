@@ -1,24 +1,24 @@
-import { delegate, getURLHash, insertHTML, replaceHTML } from "./helpers.js";
-import { TodoStore } from "./store.js";
+import { delegate, getURLHash, insertHTML, replaceHTML } from "./helpers";
+import { TodoStore } from "./store";
 
 const Todos = new TodoStore("todo-modern-vanillajs");
 
 const App = {
 	$: {
-		input: document.querySelector('[data-todo="new"]'),
-		toggleAll: document.querySelector('[data-todo="toggle-all"]'),
-		clear: document.querySelector('[data-todo="clear-completed"]'),
-		list: document.querySelector('[data-todo="list"]'),
-		showMain(show) {
-			document.querySelector('[data-todo="main"]').style.display = show ? "block" : "none";
+		input: document.querySelector('[data-todo="new"]') as HTMLElement,
+		toggleAll: document.querySelector('[data-todo="toggle-all"]') as HTMLElement,
+		clear: document.querySelector('[data-todo="clear-completed"]') as HTMLElement,
+		list: document.querySelector('[data-todo="list"]') as HTMLElement,
+		showMain(show: boolean) {
+			(document.querySelector('[data-todo="main"]') as HTMLElement).style.display = show ? "block" : "none";
 		},
-		showFooter(show) {
-			document.querySelector('[data-todo="footer"]').style.display = show ? "block" : "none";
+		showFooter(show: boolean) {
+			(document.querySelector('[data-todo="footer"]') as HTMLElement).style.display = show ? "block" : "none";
 		},
-		showClear(show) {
+		showClear(show: boolean) {
 			App.$.clear.style.display = show ? "block" : "none";
 		},
-		setActiveFilter(filter) {
+		setActiveFilter(filter: string) {
 			document.querySelectorAll(`[data-todo="filters"] a`).forEach((el) => {
 				if (el.matches(`[href="#/${filter}"]`)) {
 					el.classList.add("selected");
@@ -27,7 +27,7 @@ const App = {
 				}
 			});
 		},
-		displayCount(count) {
+		displayCount(count: number) {
 			replaceHTML(
 				document.querySelector('[data-todo="count"]'),
 				`

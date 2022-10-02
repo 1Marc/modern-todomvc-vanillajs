@@ -1,0 +1,13 @@
+{
+	"compileOnSave": true,
+	"compilerOptions": {
+		"module": "system",
+		"noImplicitAny": true,
+		"removeComments": true,
+		"preserveConstEnums": true,
+		"outFile": "./build/tsc.js",
+		"sourceMap": true
+	},
+	"include": ["./js/*"],
+	"exclude": ["node_modules"]
+}
