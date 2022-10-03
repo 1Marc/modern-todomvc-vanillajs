@@ -4,7 +4,7 @@ export interface todo {
 	completed: boolean;
 }
 
-export const TodoStore = class extends TypedEventTarget<MyEvent> {
+export const TodoStore = class extends EventTarget {
 	localStorageKey: string;
 	todos: Array<todo>;
 
