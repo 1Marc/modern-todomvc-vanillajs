@@ -1,5 +1,25 @@
-export const TodoStore = class extends EventTarget {
-	constructor(localStorageKey) {
+export interface todo {
+	id: string;
+	title: string;
+	completed: boolean;
+}
+
+export const TodoStore = class extends TypedEventTarget<MyEvent> {
+	localStorageKey: string;
+	todos: Array<todo>;
+
+	// GETTER methods
+	get = (id: string) => this.todos.find((todo) => todo.id === id);
+	isAllCompleted = () => this.todos.every((todo) => todo.completed);
+	hasCompleted = () => this.todos.some((todo) => todo.completed);
+	all = (filter?: string): Array<todo> =>
+		filter === "active"
+			? this.todos.filter((todo) => !todo.completed)
+			: filter === "completed"
+			? this.todos.filter((todo) => todo.completed)
+			: this.todos;
+
+	constructor(localStorageKey: string) {
 		super();
 		this.localStorageKey = localStorageKey;
 		this._readStorage();
@@ -12,29 +32,16 @@ export const TodoStore = class extends EventTarget {
 			},
 			false
 		);
-		// GETTER methods
-		this.get = (id) => this.todos.find((todo) => todo.id === id);
-		this.isAllCompleted = () => this.todos.every((todo) => todo.completed);
-		this.hasCompleted = () => this.todos.some((todo) => todo.completed);
-		this.all = (filter) =>
-			filter === "active"
-				? this.todos.filter((todo) => !todo.completed)
-				: filter === "completed"
-				? this.todos.filter((todo) => todo.completed)
-				: this.todos;
 	}
 	_readStorage() {
 		this.todos = JSON.parse(window.localStorage.getItem(this.localStorageKey) || "[]");
 	}
 	_save() {
-		window.localStorage.setItem(
-			this.localStorageKey,
-			JSON.stringify(this.todos)
-		);
+		window.localStorage.setItem(this.localStorageKey, JSON.stringify(this.todos));
 		this.dispatchEvent(new CustomEvent("save"));
 	}
 	// MUTATE methods
-	add(todo) {
+	add(todo: todo) {
 		this.todos.push({
 			title: todo.title,
 			completed: false,
@@ -42,11 +49,11 @@ export const TodoStore = class extends EventTarget {
 		});
 		this._save();
 	}
-	remove({ id }) {
+	remove({ id }: todo) {
 		this.todos = this.todos.filter((todo) => todo.id !== id);
 		this._save();
 	}
-	toggle({ id }) {
+	toggle({ id }: todo) {
 		this.todos = this.todos.map((todo) =>
 			todo.id === id ? { ...todo, completed: !todo.completed } : todo
 		);
@@ -56,7 +63,7 @@ export const TodoStore = class extends EventTarget {
 		this.todos = this.todos.filter((todo) => !todo.completed);
 		this._save();
 	}
-	update(todo) {
+	update(todo: todo) {
 		this.todos = this.todos.map((t) => (t.id === todo.id ? todo : t));
 		this._save();
 	}
