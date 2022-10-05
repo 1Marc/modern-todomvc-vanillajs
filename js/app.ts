@@ -1,5 +1,5 @@
 import { delegate, getURLHash, insertHTML, replaceHTML } from "./helpers.js";
-import { TodoStore, todo } from "./store.js";
+import { TodoStore, Todo } from "./store.js";
 
 const Todos = new TodoStore("todo-modern-vanillajs");
 
@@ -85,16 +85,16 @@ const App: App = {
 		});
 	},
 	bindTodoEvents() {
-		App.todoEvent("click", '[data-todo="destroy"]', (todo: todo) => Todos.remove(todo));
-		App.todoEvent("click", '[data-todo="toggle"]', (todo: todo) => Todos.toggle(todo));
-		App.todoEvent("dblclick", '[data-todo="label"]', (_: todo, $li: HTMLElement) => {
+		App.todoEvent("click", '[data-todo="destroy"]', (todo: Todo) => Todos.remove(todo));
+		App.todoEvent("click", '[data-todo="toggle"]', (todo: Todo) => Todos.toggle(todo));
+		App.todoEvent("dblclick", '[data-todo="label"]', (_: Todo, $li: HTMLElement) => {
 			$li.classList.add("editing");
 			($li.querySelector('[data-todo="edit"]') as HTMLInputElement).focus();
 		});
 		App.todoEvent(
 			"keyup",
 			'[data-todo="edit"]',
-			(todo: todo, $li: HTMLElement, e: KeyboardEvent) => {
+			(todo: Todo, $li: HTMLElement, e: KeyboardEvent) => {
 				let $input = $li.querySelector('[data-todo="edit"]') as HTMLInputElement;
 				if (e.key === "Enter" && $input.value) Todos.update({ ...todo, title: $input.value });
 				if (e.key === "Escape") {
@@ -103,12 +103,12 @@ const App: App = {
 				}
 			}
 		);
-		App.todoEvent("focusout", '[data-todo="edit"]', (todo: todo, $li: HTMLElement, e: Event) => {
+		App.todoEvent("focusout", '[data-todo="edit"]', (todo: Todo, $li: HTMLElement, e: Event) => {
 			const title = ($li.querySelector('[data-todo="edit"]') as HTMLInputElement).value;
 			Todos.update({ ...todo, title });
 		});
 	},
-	createTodoItem(todo: todo) {
+	createTodoItem(todo: Todo) {
 		const li = document.createElement("li");
 		li.dataset.id = todo.id;
 		if (todo.completed) {

@@ -1,4 +1,4 @@
-export interface todo {
+export interface Todo {
 	id: string;
 	title: string;
 	completed: boolean;
@@ -6,13 +6,13 @@ export interface todo {
 
 export const TodoStore = class extends EventTarget {
 	localStorageKey: string;
-	todos: Array<todo>;
+	todos: Array<Todo>;
 
 	// GETTER methods
 	get = (id: string) => this.todos.find((todo) => todo.id === id);
 	isAllCompleted = () => this.todos.every((todo) => todo.completed);
 	hasCompleted = () => this.todos.some((todo) => todo.completed);
-	all = (filter?: string): Array<todo> =>
+	all = (filter?: string): Array<Todo> =>
 		filter === "active"
 			? this.todos.filter((todo) => !todo.completed)
 			: filter === "completed"
@@ -41,7 +41,7 @@ export const TodoStore = class extends EventTarget {
 		this.dispatchEvent(new CustomEvent("save"));
 	}
 	// MUTATE methods
-	add(todo: todo) {
+	add(todo: Todo) {
 		this.todos.push({
 			title: todo.title,
 			completed: false,
@@ -49,11 +49,11 @@ export const TodoStore = class extends EventTarget {
 		});
 		this._save();
 	}
-	remove({ id }: todo) {
+	remove({ id }: Todo) {
 		this.todos = this.todos.filter((todo) => todo.id !== id);
 		this._save();
 	}
-	toggle({ id }: todo) {
+	toggle({ id }: Todo) {
 		this.todos = this.todos.map((todo) =>
 			todo.id === id ? { ...todo, completed: !todo.completed } : todo
 		);
@@ -63,7 +63,7 @@ export const TodoStore = class extends EventTarget {
 		this.todos = this.todos.filter((todo) => !todo.completed);
 		this._save();
 	}
-	update(todo: todo) {
+	update(todo: Todo) {
 		this.todos = this.todos.map((t) => (t.id === todo.id ? todo : t));
 		this._save();
 	}
