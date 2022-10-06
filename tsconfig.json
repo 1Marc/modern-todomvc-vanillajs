@@ -1,14 +1,15 @@
 {
-	"compileOnSave": true,
-	"compilerOptions": {
-		"lib": ["ESNext", "DOM"],
-		"module": "ESNext",
-		"noImplicitAny": true,
-		"removeComments": true,
-		"preserveConstEnums": true,
-		"outDir": "./build",
-		"sourceMap": true
-	},
-	"include": ["./js/*"],
-	"exclude": ["node_modules"]
+  "compileOnSave": true,
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM"],
+    "module": "ESNext",
+    "target": "ES6",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "outDir": "./build",
+    "sourceMap": true
+  },
+  "include": ["./js/*"],
+  "exclude": ["node_modules"]
 }
