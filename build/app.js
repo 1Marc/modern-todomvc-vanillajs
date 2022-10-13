@@ -71,7 +71,9 @@ const App = {
         });
     },
     bindTodoEvents() {
-        App.todoEvent("click", '[data-todo="destroy"]', (todo) => Todos.remove(todo));
+        App.todoEvent("click", '[data-todo="destroy"]', (todo) => {
+            Todos.remove(todo);
+        });
         App.todoEvent("click", '[data-todo="toggle"]', (todo) => Todos.toggle(todo));
         App.todoEvent("dblclick", '[data-todo="label"]', (_, $li) => {
             $li.classList.add("editing");
@@ -79,16 +81,21 @@ const App = {
         });
         App.todoEvent("keyup", '[data-todo="edit"]', (todo, $li, e) => {
             let $input = $li.querySelector('[data-todo="edit"]');
-            if (e.key === "Enter" && $input.value)
+            if (e.key === "Enter" && $input.value) {
+                $li.classList.remove("editing");
                 Todos.update(Object.assign(Object.assign({}, todo), { title: $input.value }));
+            }
             if (e.key === "Escape") {
                 $input.value = todo.title;
                 App.render();
             }
         });
         App.todoEvent("focusout", '[data-todo="edit"]', (todo, $li, e) => {
-            const title = $li.querySelector('[data-todo="edit"]').value;
-            Todos.update(Object.assign(Object.assign({}, todo), { title }));
+            if ($li.classList.contains("editing")) {
+                let $input = $li.querySelector('[data-todo="edit"]');
+                $input.value = todo.title;
+                App.render();
+            }
         });
     },
     createTodoItem(todo) {
