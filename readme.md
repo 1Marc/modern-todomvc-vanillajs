@@ -46,6 +46,12 @@ We can achieve the same performant DOM updates with far less code by adopting li
 
 Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/animation-lithtml
 
+## TypeScript
+
+Here's the code base with TypeScript.
+
+Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/performant-rendering
+
 # Example UI Components Using this Architecture
 
 [Vanilla JavaScript View Switcher Based on Hash Change](https://codepen.io/1Marc/pen/poLmXZR)
