@@ -1,85 +1,88 @@
 import { delegate, getURLHash, insertHTML, replaceHTML } from "./helpers.js";
 import { TodoStore } from "./store.js";
 const Todos = new TodoStore("todo-modern-vanillajs");
-const App = {
-    filter: "",
-    $: {
-        input: document.querySelector('[data-todo="new"]'),
-        toggleAll: document.querySelector('[data-todo="toggle-all"]'),
-        clear: document.querySelector('[data-todo="clear-completed"]'),
-        list: document.querySelector('[data-todo="list"]'),
-        showMain(show) {
-            document.querySelector('[data-todo="main"]').style.display = show
-                ? "block"
-                : "none";
-        },
-        showFooter(show) {
-            document.querySelector('[data-todo="footer"]').style.display = show
-                ? "block"
-                : "none";
-        },
-        showClear(show) {
-            App.$.clear.style.display = show ? "block" : "none";
-        },
-        setActiveFilter(filter) {
-            document.querySelectorAll(`[data-todo="filters"] a`).forEach((el) => {
-                if (el.matches(`[href="#/${filter}"]`)) {
-                    el.classList.add("selected");
-                }
-                else {
-                    el.classList.remove("selected");
-                }
-            });
-        },
-        displayCount(count) {
-            replaceHTML(document.querySelector('[data-todo="count"]'), `
-				<strong>${count}</strong>
-				${count === 1 ? "item" : "items"} left
-			`);
-        },
-    },
-    init() {
-        Todos.addEventListener("save", App.render);
-        App.filter = getURLHash();
+class TodoApp {
+    constructor(el) {
+        this.parent = el;
+        this.$ = {
+            input: el.querySelector('[data-todo="new"]'),
+            toggleAll: el.querySelector('[data-todo="toggle-all"]'),
+            clear: el.querySelector('[data-todo="clear-completed"]'),
+            list: el.querySelector('[data-todo="list"]'),
+        };
+        this.setupUI();
+    }
+    setupUI() {
+        Todos.addEventListener("save", this.render.bind(this));
+        this.filter = getURLHash();
         window.addEventListener("hashchange", () => {
-            App.filter = getURLHash();
-            App.render();
+            this.filter = getURLHash();
+            this.render();
         });
-        App.$.input.addEventListener("keyup", (e) => {
+        this.$.input.addEventListener("keyup", (e) => {
             if (e.key === "Enter" && e.target.value.length) {
                 Todos.add({
                     title: e.target.value,
                     completed: false,
                     id: "id_" + Date.now(),
                 });
-                App.$.input.value = "";
+                this.$.input.value = "";
             }
         });
-        App.$.toggleAll.addEventListener("click", (e) => {
+        this.$.toggleAll.addEventListener("click", (e) => {
             Todos.toggleAll();
         });
-        App.$.clear.addEventListener("click", (e) => {
+        this.$.clear.addEventListener("click", (e) => {
             Todos.clearCompleted();
         });
-        App.bindTodoEvents();
-        App.render();
-    },
+        this.bindTodoEvents();
+        this.render();
+    }
+    uiShowMain(show) {
+        this.parent.querySelector('[data-todo="main"]').style.display = show
+            ? "block"
+            : "none";
+    }
+    uiShowFooter(show) {
+        this.parent.querySelector('[data-todo="footer"]').style.display = show
+            ? "block"
+            : "none";
+    }
+    uiShowClear(show) {
+        this.$.clear.style.display = show ? "block" : "none";
+    }
+    uiSetActiveFilter(filter) {
+        this.parent.querySelectorAll(`[data-todo="filters"] a`).forEach((el) => {
+            if (el.matches(`[href="#/${filter}"]`)) {
+                el.classList.add("selected");
+            }
+            else {
+                el.classList.remove("selected");
+            }
+        });
+    }
+    uiDisplayCount(count) {
+        replaceHTML(this.parent.querySelector('[data-todo="count"]'), `
+			<strong>${count}</strong>
+			${count === 1 ? "item" : "items"} left
+		`);
+    }
     todoEvent(event, selector, handler) {
-        delegate(App.$.list, selector, event, (e) => {
+        delegate(this.$.list, selector, event, (e) => {
             let $el = e.target.closest("[data-id]");
             handler(Todos.get($el.dataset.id), $el, e);
         });
-    },
+    }
     bindTodoEvents() {
-        App.todoEvent("click", '[data-todo="destroy"]', (todo) => {
+        this.todoEvent("click", '[data-todo="destroy"]', (todo) => {
             Todos.remove(todo);
         });
-        App.todoEvent("click", '[data-todo="toggle"]', (todo) => Todos.toggle(todo));
-        App.todoEvent("dblclick", '[data-todo="label"]', (_, $li) => {
+        this.todoEvent("click", '[data-todo="toggle"]', (todo) => Todos.toggle(todo));
+        this.todoEvent("dblclick", '[data-todo="label"]', (_, $li) => {
             $li.classList.add("editing");
             $li.querySelector('[data-todo="edit"]').focus();
         });
-        App.todoEvent("keyup", '[data-todo="edit"]', (todo, $li, e) => {
+        this.todoEvent("keyup", '[data-todo="edit"]', (todo, $li, e) => {
             let $input = $li.querySelector('[data-todo="edit"]');
             if (e.key === "Enter" && $input.value) {
                 $li.classList.remove("editing");
@@ -87,17 +90,17 @@ const App = {
             }
             if (e.key === "Escape") {
                 $input.value = todo.title;
-                App.render();
+                this.render();
             }
         });
-        App.todoEvent("focusout", '[data-todo="edit"]', (todo, $li, e) => {
+        this.todoEvent("focusout", '[data-todo="edit"]', (todo, $li, e) => {
             if ($li.classList.contains("editing")) {
                 let $input = $li.querySelector('[data-todo="edit"]');
                 $input.value = todo.title;
-                App.render();
+                this.render();
             }
         });
-    },
+    }
     createTodoItem(todo) {
         const li = document.createElement("li");
         li.dataset.id = todo.id;
@@ -115,17 +118,18 @@ const App = {
         li.querySelector('[data-todo="label"]').textContent = todo.title;
         li.querySelector('[data-todo="edit"]').value = todo.title;
         return li;
-    },
+    }
     render() {
-        const count = Todos.all().length;
-        App.$.setActiveFilter(App.filter);
-        App.$.list.replaceChildren(...Todos.all(App.filter).map((todo) => App.createTodoItem(todo)));
-        App.$.showMain(count);
-        App.$.showFooter(count);
-        App.$.showClear(Todos.hasCompleted());
-        App.$.toggleAll.checked = Todos.isAllCompleted();
-        App.$.displayCount(Todos.all("active").length);
-    },
-};
-App.init();
+        const isTodos = !!Todos.all().length;
+        console.log(this);
+        this.uiSetActiveFilter(this.filter);
+        this.$.list.replaceChildren(...Todos.all(this.filter).map((todo) => this.createTodoItem(todo)));
+        this.uiShowMain(isTodos);
+        this.uiShowFooter(isTodos);
+        this.uiShowClear(Todos.hasCompleted());
+        this.$.toggleAll.checked = Todos.isAllCompleted();
+        this.uiDisplayCount(Todos.all("active").length);
+    }
+}
+new TodoApp(document.body);
 //# sourceMappingURL=app.js.map
