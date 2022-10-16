@@ -50,7 +50,7 @@ Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/animation-lithtml
 
 Here's the code base with TypeScript.
 
-Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/performant-rendering
+Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/typescript
 
 # Example UI Components Using this Architecture
 
