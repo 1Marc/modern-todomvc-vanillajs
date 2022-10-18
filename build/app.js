@@ -89,8 +89,7 @@ class TodoApp {
                 Todos.update(Object.assign(Object.assign({}, todo), { title: $input.value }));
             }
             if (e.key === "Escape") {
-                $input.value = todo.title;
-                this.render();
+                document.activeElement.blur();
             }
         });
         this.todoEvent("focusout", '[data-todo="edit"]', (todo, $li, e) => {
@@ -121,7 +120,6 @@ class TodoApp {
     }
     render() {
         const isTodos = !!Todos.all().length;
-        console.log(this);
         this.uiSetActiveFilter(this.filter);
         this.$.list.replaceChildren(...Todos.all(this.filter).map((todo) => this.createTodoItem(todo)));
         this.uiShowMain(isTodos);

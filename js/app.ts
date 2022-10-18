@@ -114,8 +114,7 @@ class TodoApp {
 					Todos.update({ ...todo, title: $input.value });
 				}
 				if (e.key === "Escape") {
-					$input.value = todo.title;
-					this.render();
+					(document.activeElement as HTMLInputElement).blur();
 				}
 			}
 		);
@@ -152,8 +151,6 @@ class TodoApp {
 
 	render() {
 		const isTodos = !!Todos.all().length;
-
-		console.log(this);
 
 		this.uiSetActiveFilter(this.filter);
 		this.$.list.replaceChildren(...Todos.all(this.filter).map((todo) => this.createTodoItem(todo)));
