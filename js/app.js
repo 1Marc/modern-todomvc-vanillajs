@@ -78,15 +78,18 @@ const App = {
 		});
 		App.todoEvent("keyup", '[data-todo="edit"]', (todo, $li, e) => {
 			let $input = $li.querySelector('[data-todo="edit"]');
-			if (e.key === "Enter" && $input.value) Todos.update({ ...todo, title: $input.value });
+			if (e.key === "Enter" && $input.value) {
+				$li.classList.remove("editing");
+				Todos.update({ ...todo, title: $input.value });
+			}
 			if (e.key === "Escape") {
-				$input.value = todo.title;
-				App.render();
+				document.activeElement.blur();
 			}
 		});
 		App.todoEvent("focusout", '[data-todo="edit"]', (todo, $li, e) => {
-			const title = $li.querySelector('[data-todo="edit"]').value;
-			Todos.update({ ...todo, title });
+			if ($li.classList.contains("editing")) {
+				App.render();
+			}
 		});
 	},
 	createTodoItem(todo) {
@@ -111,6 +114,7 @@ const App = {
 		return li;
 	},
 	render() {
+		console.log("RENDER", Todos.all());
 		const count = Todos.all().length;
 		App.$.setActiveFilter(App.filter);
 		App.$.list.replaceChildren(...Todos.all(App.filter).map((todo) => App.createTodoItem(todo)));
