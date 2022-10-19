@@ -114,7 +114,6 @@ const App = {
 		return li;
 	},
 	render() {
-		console.log("RENDER", Todos.all());
 		const count = Todos.all().length;
 		App.$.setActiveFilter(App.filter);
 		App.$.list.replaceChildren(...Todos.all(App.filter).map((todo) => App.createTodoItem(todo)));
