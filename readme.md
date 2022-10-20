@@ -8,7 +8,7 @@ Here's my Vanilla JavaScript implementation:
 - No build tools
 - JavaScript modules
 
-<a href="https://1marc.github.io/todomvc-vanillajs-2022/" target="_new">View the working example on GitHub pages</a>
+<a href="https://1marc.github.io/modern-todomvc-vanillajs/" target="_new">View the working example on GitHub pages</a>
 
 Criticism, PRs, and feedback are welcome!
 
@@ -20,7 +20,7 @@ Criticism, PRs, and feedback are welcome!
 
 ## Initial Code
 
-The initial version came together in only 60 minutes, then ~30 min of refactoring: [see the commit here](https://github.com/1Marc/todomvc-vanillajs-2022/tree/fb3c61ed104c440f0c29e3a074b6777c791aa2f6)
+The initial version came together in only 60 minutes, then ~30 min of refactoring: [see the commit here](https://github.com/1Marc/modern-todomvc-vanillajs/tree/fb3c61ed104c440f0c29e3a074b6777c791aa2f6)
 
 How quick it was to get working was what initially got me pumped about all of the progress in the core JavaScript language.
 
@@ -28,7 +28,7 @@ How quick it was to get working was what initially got me pumped about all of th
 
 People were concerned about the scalability of apps like this since there are no components, and it's all one App. So I extracted the TodoList and App components and wired the components together on the app-architecture branch.
 
-Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/app-architecture
+Branch: https://github.com/1Marc/modern-todomvc-vanillajs/tree/app-architecture
 
 Note: I realize it is silly to say the word "scalable" in the context of a todo app, but this should be looked at as a blueprint for building something more extensive. I plan to make more ambitious examples in the future to show what's possible.
 
@@ -36,21 +36,23 @@ Note: I realize it is silly to say the word "scalable" in the context of a todo 
 
 Since I'm rendering everything on every update of the model from scratch, this can cause performance issues on long lists.
 
-Here's a branch sending specific events with context from the model so we can make DOM updates more selectively as we need them ([see code diff](https://github.com/1Marc/todomvc-vanillajs-2022/commit/fc89da1a6bd15489d5256575a4e193e11efd8d43)).
+Here's a branch sending specific events with context from the model so we can make DOM updates more selectively as we need them ([see code diff](https://github.com/1Marc/modern-todomvc-vanillajs/commit/fc89da1a6bd15489d5256575a4e193e11efd8d43)).
 
-Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/performant-rendering
+Branch: https://github.com/1Marc/modern-todomvc-vanillajs/tree/performant-rendering
 
 ## More Performant DOM Updates for Large Lists with lit-html (Plus animations!)
 
-We can achieve the same performant DOM updates with far less code by adopting lit-html using the repeat directive ([see code diff](https://github.com/1Marc/todomvc-vanillajs-2022/commit/ef86a73166029991dc88c649f7ec4931a2a96c86)).
+We can achieve the same performant DOM updates with far less code by adopting lit-html using the repeat directive ([see code diff](https://github.com/1Marc/modern-todomvc-vanillajs/commit/ef86a73166029991dc88c649f7ec4931a2a96c86)).
 
-Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/animation-lithtml
+Branch: https://github.com/1Marc/modern-todomvc-vanillajs/tree/animation-lithtml
 
 ## TypeScript
 
-Here's the code base with TypeScript.
+Here's the code base with TypeScript: https://github.com/1Marc/modern-todomvc-vanillaj/tree/typescript
 
-Branch: https://github.com/1Marc/todomvc-vanillajs-2022/tree/typescript
+## TypeScript + ESLint
+
+Here's the code base with TypeScript and linting with ESLint: https://github.com/1Marc/modern-todomvc-vanillajs/tree/typescript-eslint
 
 # Example UI Components Using this Architecture
 
