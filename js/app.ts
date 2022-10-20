@@ -42,10 +42,10 @@ class TodoApp {
 				(this.$.input as HTMLInputElement).value = "";
 			}
 		});
-		this.$.toggleAll.addEventListener("click", (e) => {
+		this.$.toggleAll.addEventListener("click", () => {
 			Todos.toggleAll();
 		});
-		this.$.clear.addEventListener("click", (e) => {
+		this.$.clear.addEventListener("click", () => {
 			Todos.clearCompleted();
 		});
 		this.bindTodoEvents();
@@ -88,9 +88,13 @@ class TodoApp {
 		);
 	}
 
-	todoEvent(event: keyof GlobalEventHandlersEventMap, selector: string, handler: Function): void {
+	todoEvent(
+		event: keyof GlobalEventHandlersEventMap,
+		selector: string,
+		handler: (todo: Todo, $el: HTMLElement, e: Event) => void
+	): void {
 		delegate(this.$.list as HTMLElement, selector, event, (e: Event) => {
-			let $el = (e.target as HTMLElement).closest("[data-id]") as HTMLElement;
+			const $el = (e.target as HTMLElement).closest("[data-id]") as HTMLElement;
 			handler(Todos.get($el.dataset.id), $el, e);
 		});
 	}
@@ -108,7 +112,7 @@ class TodoApp {
 			"keyup",
 			'[data-todo="edit"]',
 			(todo: Todo, $li: HTMLElement, e: KeyboardEvent) => {
-				let $input = $li.querySelector('[data-todo="edit"]') as HTMLInputElement;
+				const $input = $li.querySelector('[data-todo="edit"]') as HTMLInputElement;
 				if (e.key === "Enter" && $input.value) {
 					$li.classList.remove("editing");
 					Todos.update({ ...todo, title: $input.value });
@@ -118,9 +122,9 @@ class TodoApp {
 				}
 			}
 		);
-		this.todoEvent("focusout", '[data-todo="edit"]', (todo: Todo, $li: HTMLElement, e: Event) => {
+		this.todoEvent("focusout", '[data-todo="edit"]', (todo: Todo, $li: HTMLElement) => {
 			if ($li.classList.contains("editing")) {
-				let $input = $li.querySelector('[data-todo="edit"]') as HTMLInputElement;
+				const $input = $li.querySelector('[data-todo="edit"]') as HTMLInputElement;
 				$input.value = todo.title;
 				this.render();
 			}
