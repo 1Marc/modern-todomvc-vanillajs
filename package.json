@@ -5,6 +5,7 @@
 		"format": "npx prettier --write ."
 	},
 	"dependencies": {
+		"lit-html": "^2.7.0",
 		"todomvc-app-css": "^2.0.0"
 	},
 	"dependenciesComments": {
