@@ -1,4 +1,4 @@
-# TodoMVC App Written in Vanilla JS in 2022
+# TodoMVC App Written in Modern Vanilla JS
 
 It seems straightforward to build reasonably complex things using only modern JavaScript these days! We can take advantage of most newer features without hacks or polyfills.
 
