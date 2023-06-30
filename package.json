@@ -5,6 +5,8 @@
 		"format": "npx prettier --write ."
 	},
 	"dependencies": {
+		"@m-ld/m-ld": "^0.10.0-edge.2",
+		"socket.io": "^4.7.1",
 		"todomvc-app-css": "^2.0.0"
 	},
 	"dependenciesComments": {

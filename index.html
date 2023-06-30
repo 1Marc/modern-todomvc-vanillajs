@@ -10,12 +10,13 @@
 	<body>
 		<section class="todoapp">
 			<header class="header">
-				<h1>todos</h1>
+				<h1><a href=".">todos</a></h1>
 				<input
 					placeholder="What needs to be done?"
 					autofocus
 					class="new-todo"
 					data-todo="new"
+					disabled
 				/>
 			</header>
 			<!-- This section should be hidden by default and shown when there are todos -->
@@ -38,13 +39,13 @@
 				<!-- Remove this if you don't implement routing -->
 				<ul class="filters" data-todo="filters">
 					<li>
-						<a class="selected" href="#/">All</a>
+						<a class="selected" href="#//">All</a>
 					</li>
 					<li>
-						<a href="#/active">Active</a>
+						<a href="#//active">Active</a>
 					</li>
 					<li>
-						<a href="#/completed">Completed</a>
+						<a href="#//completed">Completed</a>
 					</li>
 				</ul>
 				<!-- Hidden if no completed items are left ↓ -->
@@ -54,12 +55,13 @@
 			</footer>
 		</section>
 		<footer class="info">
-			<p>Double-click to edit a todo</p>
-			<p>Created by <a href="https://twitter.com/1Marc">Marc Grabanski</a></p>
+			<p>Double-click to edit a todo | Click the header to create a new todo list</p>
+			<p>Created by <a href="https://twitter.com/1Marc">Marc Grabanski</a> |
+			Collaboration enabled with <a href="https://m-ld.org/">m-ld</a></p>
 			<p>
 				Project on GitHub:
-				<a href="https://github.com/1Marc/todomvc-vanillajs-2022"
-					>Vanilla JS TodoMVC 2022</a
+				<a href="https://github.com/m-ld/m-ld-todomvc-vanillajs"
+					>Vanilla JS TodoMVC with m-ld</a
 				>
 			</p>
 		</footer>

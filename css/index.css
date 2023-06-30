@@ -79,6 +79,11 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
+.todoapp a {
+    all: unset;
+	cursor: pointer;
+}
+
 .new-todo,
 .edit {
 	position: relative;
