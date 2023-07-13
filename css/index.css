@@ -390,7 +390,3 @@ html .clear-completed:active {
 	box-shadow: 0 0 2px 2px #cf7d7d;
 	outline: 0;
 }
-
-[hidden] {
-	display: none !important;
-}
