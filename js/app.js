@@ -10,13 +10,13 @@ const App = {
 		clear: document.querySelector('[data-todo="clear-completed"]'),
 		list: document.querySelector('[data-todo="list"]'),
 		showMain(show) {
-			document.querySelector('[data-todo="main"]').style.display = show ? "block" : "none";
+			document.querySelector('[data-todo="main"]').hidden = !show;
 		},
 		showFooter(show) {
-			document.querySelector('[data-todo="footer"]').style.display = show ? "block" : "none";
+			document.querySelector('[data-todo="footer"]').hidden = !show;
 		},
 		showClear(show) {
-			App.$.clear.style.display = show ? "block" : "none";
+			App.$.clear.hidden = !show;
 		},
 		setActiveFilter(filter) {
 			document.querySelectorAll(`[data-todo="filters"] a`).forEach((el) => {
