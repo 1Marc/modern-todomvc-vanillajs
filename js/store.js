@@ -27,10 +27,7 @@ export const TodoStore = class extends EventTarget {
 		this.todos = JSON.parse(window.localStorage.getItem(this.localStorageKey) || "[]");
 	}
 	_save() {
-		window.localStorage.setItem(
-			this.localStorageKey,
-			JSON.stringify(this.todos)
-		);
+		window.localStorage.setItem(this.localStorageKey, JSON.stringify(this.todos));
 		this.dispatchEvent(new CustomEvent("save"));
 	}
 	// MUTATE methods
@@ -38,7 +35,7 @@ export const TodoStore = class extends EventTarget {
 		// Remove any leading or trailing whitespace from the todo title
 		const trimmedTodoTitle = todo.title.trim();
 		// Check if the trimmed todo title is not an empty string
-		if(trimmedTodoTitle){	
+		if (trimmedTodoTitle) {
 			this.todos.push({
 				// Set the title of the new todo to the trimmed todo title
 				title: trimmedTodoTitle,
@@ -63,8 +60,13 @@ export const TodoStore = class extends EventTarget {
 		this._save();
 	}
 	update(todo) {
-		this.todos = this.todos.map((t) => (t.id === todo.id ? todo : t));
-		this._save();
+		// Remove any leading or trailing whitespace from the todo title
+		todo.title = todo.title.trim();
+		// Check if the trimmed todo title is not an empty string
+		if (todo.title) {
+			this.todos = this.todos.map((t) => (t.id === todo.id ? todo : t));
+			this._save();
+		}
 	}
 	toggleAll() {
 		const completed = !this.hasCompleted() || !this.isAllCompleted();
