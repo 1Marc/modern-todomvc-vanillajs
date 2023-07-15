@@ -35,12 +35,18 @@ export const TodoStore = class extends EventTarget {
 	}
 	// MUTATE methods
 	add(todo) {
-		this.todos.push({
-			title: todo.title,
-			completed: false,
-			id: "id_" + Date.now(),
-		});
-		this._save();
+		// Remove any leading or trailing whitespace from the todo title
+		const trimmedTodoTitle = todo.title.trim();
+		// Check if the trimmed todo title is not an empty string
+		if(trimmedTodoTitle){	
+			this.todos.push({
+				// Set the title of the new todo to the trimmed todo title
+				title: trimmedTodoTitle,
+				completed: false,
+				id: "id_" + Date.now(),
+			});
+			this._save();
+		}
 	}
 	remove({ id }) {
 		this.todos = this.todos.filter((todo) => todo.id !== id);
