@@ -6,6 +6,7 @@ const Todos = new TodoStore("todo-modern-vanillajs");
 const App = {
 	$: {
 		input: document.querySelector('[data-todo="new"]'),
+		addBtn: document.querySelector('[data-todo-btn="add-todo-btn"]'),
 		toggleAll: document.querySelector('[data-todo="toggle-all"]'),
 		clear: document.querySelector('[data-todo="clear-completed"]'),
 		list: document.querySelector('[data-todo="list"]'),
@@ -52,6 +53,18 @@ const App = {
 					id: "id_" + Date.now(),
 				});
 				App.$.input.value = "";
+			}
+		});
+		
+		App.$.addBtn.addEventListener("click", (e) => {
+			if (App.$.input.value.length) {
+				Todos.add({
+					title: App.$.input.value,
+					completed: false,
+					id: "id_" + Date.now(),
+				});
+				App.$.input.value = "";
+				App.$.input.focus();
 			}
 		});
 		App.$.toggleAll.addEventListener("click", (e) => {

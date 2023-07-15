@@ -84,7 +84,7 @@ body {
 	position: relative;
 	margin: 0;
 	width: 100%;
-	font-size: 24px;
+	font-size: 1.25rem;
 	font-family: inherit;
 	font-weight: inherit;
 	line-height: 1.4em;
@@ -98,11 +98,21 @@ body {
 }
 
 .new-todo {
-	padding: 16px 16px 16px 60px;
+	padding: 16px 16px 16px 50px;
 	height: 65px;
 	border: none;
 	background: rgba(0, 0, 0, 0.003);
 	box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+}
+
+.add-todo-btn{
+	padding: 0.25rem;
+	border: 1px solid #ce4646;
+	border-radius: 3px;
+	position: absolute;
+	right: 0.5rem;
+	top: 1.2rem;
+	cursor: pointer;
 }
 
 .main {
@@ -155,7 +165,7 @@ body {
 
 .todo-list li {
 	position: relative;
-	font-size: 24px;
+	font-size: 1.25rem;
 	border-bottom: 1px solid #ededed;
 }
 
@@ -213,7 +223,7 @@ body {
 
 .todo-list li label {
 	word-break: break-all;
-	padding: 15px 15px 15px 60px;
+	padding: 15px 15px 15px 50px;
 	display: block;
 	line-height: 1.2;
 	transition: color 0.4s;
