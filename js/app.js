@@ -45,12 +45,8 @@ const App = {
 			App.render();
 		});
 		App.$.input.addEventListener("keyup", (e) => {
-			if (e.key === "Enter" && e.target.value.length) {
-				Todos.add({
-					title: e.target.value,
-					completed: false,
-					id: "id_" + Date.now(),
-				});
+			if (e.key === "Enter" && e.target.value.trim()) {
+				Todos.add({ title: e.target.value.trim() });
 				App.$.input.value = "";
 			}
 		});
@@ -78,9 +74,9 @@ const App = {
 		});
 		App.todoEvent("keyup", '[data-todo="edit"]', (todo, $li, e) => {
 			let $input = $li.querySelector('[data-todo="edit"]');
-			if (e.key === "Enter" && $input.value) {
+			if (e.key === "Enter" && $input.value.trim()) {
 				$li.classList.remove("editing");
-				Todos.update({ ...todo, title: $input.value });
+				Todos.update({ ...todo, title: $input.value.trim() });
 			}
 			if (e.key === "Escape") {
 				document.activeElement.blur();
