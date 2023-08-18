@@ -34,9 +34,9 @@ export const TodoStore = class extends EventTarget {
 		this.dispatchEvent(new CustomEvent("save"));
 	}
 	// MUTATE methods
-	add(todo) {
+	add({ title }) {
 		this.todos.push({
-			title: todo.title,
+			title,
 			completed: false,
 			id: "id_" + Date.now(),
 		});
