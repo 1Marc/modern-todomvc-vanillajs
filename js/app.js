@@ -140,4 +140,3 @@ const App = {
 };
 
 App.init();
-window.App = App;
