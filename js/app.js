@@ -121,9 +121,7 @@ const App = {
 		if (!App.focusedSelector) return;
 
 		const $el = App.$.list.querySelector(App.focusedSelector);
-		if ($el) {
-			$el.focus();
-		}
+		if ($el) $el.focus();
 	},
 	render() {
 		const count = Todos.all().length;
