@@ -109,10 +109,28 @@ const App = {
 		li.querySelector('[data-todo="edit"]').value = todo.title;
 		return li;
 	},
+	saveFocus() {
+		const $active = document.activeElement;
+		const $parent = $active && $active.closest("[data-id]");
+
+		App.focusedSelector = $parent
+			? `[data-id="${$parent.dataset.id}"] ${$active.tagName.toLowerCase()}`
+			: null;
+	},
+	restoreFocus() {
+		if (!App.focusedSelector) return;
+
+		const $el = App.$.list.querySelector(App.focusedSelector);
+		if ($el) {
+			$el.focus();
+		}
+	},
 	render() {
 		const count = Todos.all().length;
 		App.$.setActiveFilter(App.filter);
+		App.saveFocus();
 		App.$.list.replaceChildren(...Todos.all(App.filter).map((todo) => App.createTodoItem(todo)));
+		App.restoreFocus();
 		App.$.showMain(count);
 		App.$.showFooter(count);
 		App.$.showClear(Todos.hasCompleted());
@@ -122,3 +140,4 @@ const App = {
 };
 
 App.init();
+window.App = App;
